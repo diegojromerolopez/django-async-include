@@ -55,6 +55,7 @@ setup(
         'License :: OSI Approved :: MIT License',
     ],
     install_requires=[
+        "pycryptodome"
     ],
     license="MIT",
     keywords="django template asynchronous template_tag",

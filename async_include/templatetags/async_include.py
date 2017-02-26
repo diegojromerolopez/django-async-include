@@ -2,11 +2,16 @@
 
 from __future__ import unicode_literals
 
+import hashlib
 import json
 import uuid
 
+from .. import crypto
+
+from django.conf import settings
 from django import template
 from django.contrib.contenttypes.models import ContentType
+from django.db.models.query import QuerySet
 from django.template import loader, Context
 from django.utils.text import slugify
 from django.core import serializers
@@ -35,9 +40,31 @@ def async_include(context, template_path, *args, **kwargs):
         # We will send this data to the view to load there this object
         if is_model_object:
             object_id = context_object.id
-            model = context_object.__class__.__name__
+            model_name = context_object.__class__.__name__
             app_name = ContentType.objects.get_for_model(context_object).app_label
-            replacements["context"][context_object_name] = {"type": "model", "id": object_id, "app_name": app_name, "model": model}
+            replacements["context"][context_object_name] = {
+                "type": "model",
+                "id": object_id,
+                "app_name": app_name,
+                "model": model_name
+            }
+
+        elif type(context_object) == QuerySet:
+            model = context_object.model
+            model_name = model.__name__
+            app_name = ContentType.objects.get_for_model(model).app_label
+            sql_query = context_object.query.__str__()
+
+            nonce, encrypted_sql, tag = crypto.encrypt(key=settings.SECRET_KEY[:16], data=sql_query)
+
+            replacements["context"][context_object_name] = {
+                "type": "QuerySet",
+                "query": encrypted_sql.decode("latin-1"),
+                "nonce": nonce.decode("latin-1"),
+                "tag": tag.decode("latin-1"),
+                "app_name": app_name,
+                "model": model_name
+            }
 
         # Safe values are sent "as is" to the view that will render the template
         else:

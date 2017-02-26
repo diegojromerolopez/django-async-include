@@ -10,7 +10,7 @@ This application
 
 # Requirements
 
-This application has no extra Python package requirements.
+This application only depends on [pycryptodome](https://github.com/Legrandin/pycryptodome).
 
 Of course you will need [Django](https://www.djangoproject.com/) version 1.10 or newer. I have no tested in lower versions of Django but it
 should work fine with versions from 1.8 to 1.9.

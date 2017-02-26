@@ -2,11 +2,15 @@
 
 from __future__ import unicode_literals
 
+import hashlib
 import json
 
+from . import crypto
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader, Context
+
+from django.conf import settings
 
 from django.apps import apps
 
@@ -35,6 +39,25 @@ def get_template(request):
             model = apps.get_model(context_object_load_params["app_name"], context_object_load_params["model"])
             # Loading the object and including it as a replacement
             replacements[context_object_name] = model.objects.get(id=context_object_load_params["id"])
+
+        # If the value is a QuerySet we include it in the template replacements
+        elif object_type == "QuerySet":
+            # Loading the model
+            model_name = context_object_load_params["model"]
+            model = apps.get_model(context_object_load_params["app_name"], model_name)
+
+            try:
+                # Decryption of the data
+                raw_query = crypto.decrypt(
+                    key=settings.SECRET_KEY[:16],
+                    nonce=context_object_load_params["nonce"],
+                    encrypted_data=context_object_load_params["query"],
+                    tag=context_object_load_params["tag"]
+                )
+                # Loading the object and including it as a replacement
+                replacements[context_object_name] = model.objects.raw(raw_query)
+            except ValueError:
+                pass
 
         # If the value is a safe value we include it in the template replacements
         elif object_type == "safe_value":
