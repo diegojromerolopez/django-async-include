@@ -1,23 +1,29 @@
 <div id="{{block_id}}">
     <script type="text/javascript">
-        $(document).ready(function(){
-            var context = {{context|safe}};
-            var post_data = {
-                path: "{{template_path}}",
-                context: context
-            };
-            $.ajax({
-                type: "POST",
-                url: "{% url 'async_include:get_template' %}",
-                processData: false,
-                contentType: 'application/json',
-                data: JSON.stringify(post_data),
-                success: function(response_data) {
-                    console.log(response_data);
-                    $("#{{block_id}}").html(response_data);
-                }
+        if (typeof jQuery == 'undefined') {
+            if(console) {
+                console.error("jQuery is not loaded and is required by async_include. Please, load it in HEAD block.");
+            }
+        } else {
+            $(document).ready(function(){
+                var context = {{context|safe}};
+                var post_data = {
+                    path: "{{template_path}}",
+                    context: context
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'async_include:get_template' %}",
+                    processData: false,
+                    contentType: 'application/json',
+                    data: JSON.stringify(post_data),
+                    success: function(response_data) {
+                        console.log(response_data);
+                        $("#{{block_id}}").html(response_data);
+                    }
+                });
             });
-        });
+        }
     </script>
     {% include "async_include/spinner.html" %}
 </div>
