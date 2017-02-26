@@ -43,7 +43,7 @@ for dirpath, dirnames, filenames in os.walk('.'):
         data_files.append([dirpath, [os.path.join(dirpath, f) for f in filenames]])
 
 setup(
-    name="django-aync-include",
+    name="django-async-include",
     version="0.1",
     author="Diego J. Romero López",
     author_email="diegojromerolopez@gmail.com",
