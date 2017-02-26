@@ -2,7 +2,7 @@
 
 from django.conf.urls import url, include
 
-from djangotrellostats.apps.async_include import views
+from async_include import views
 
 urlpatterns = [
     # Load
