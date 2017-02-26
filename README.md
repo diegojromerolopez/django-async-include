@@ -6,6 +6,8 @@ Asynchronous inclusion of Django templates
 This is a project to help the ajax load of chunks of HTML with minimal effort on the developer side,
 providing an easy way to improve web-site experience for your users by minimizing perceived loading times.
 
+This application 
+
 # Requirements
 
 This application has no extra Python package requirements.
@@ -13,6 +15,7 @@ This application has no extra Python package requirements.
 Of course you will need [Django](https://www.djangoproject.com/) version 1.10 or newer. I have no tested in lower versions of Django but it
 should work fine with versions from 1.8 to 1.9.
 
+## jQuery
 Having said that, this application needs [jQuery](https://jquery.com/) to fetch the templates. So make sure you have jquery loaded in your HEAD HTML section.
 
 The easiest way of inclue jQuery in your project is by [loading it from a CDN](https://code.jquery.com/):
@@ -26,6 +29,14 @@ The easiest way of inclue jQuery in your project is by [loading it from a CDN](h
 
 Beware of the version of jQuery if you are using bootstrap or other framework that can't work with jQuery's last version.
 
+## Fontawesome (optional)
+
+[Fontawesome](http://fontawesome.io/) is the the-facto standard of font icons of our time. Include it in your project to see the spinner moving when loading the remote templates.
+
+The easiest way to include it by using a CDN. For example, [bootstrap CDN](https://www.bootstrapcdn.com/fontawesome/) (not afiliated nor they endorse this project) is one of the most known.
+
+Default waiting spinner uses fontawesome. You can overwrite **async_include/spinner.html** template if don't want to use
+the default fontawesome style.
 
 # Installation
 
@@ -70,16 +81,44 @@ urlpatterns = [
 
 # Use
 
+Load the **async_include** template tags at the top of your file and use the **async_include**
+template tag as a replacement of the django include template tag.
+
+You have to pass the local context explicitily to the async included templates, so you can pass all variables you
+need in your included template as named parameters of the **async_include** template tag.
+
 ```html
+
+{# Load the async_include template tag at the top of your template file #}
+{% load async_include %}
+
+{# Call the async_include template tag indicating what objects needs to replace it #}
 {% async_include "<path of the >" <object1_name>=<object1> <object2_name>=<object2> ... <objectN_name>=<objectN>  %}
 ```
+
+## Warning
+
+No dynamic attribute will be passed to the templates given that only a reference to it is passed from the caller to the
+included template callee. **Don't use dynamic attributes insied an async_included template**.
+
+Howewer, the full object will be passed to the async_included template, so you could call its methods and properties
+without any problem.
 
 ## Examples
 
 ```html
+{% load async_include %}
+
+{# .. #}
+
 {# Load the template and informs the board object is required for the included template  #}
 {% async_include "boards/components/view/current_percentage_of_completion.html" board=board %}
 ```
+
+# Customization
+
+Overwrite **async_include/spinner.html** template if you want to change the spinner from fontawesome one (default) by a
+background image or a image. Otherwise, make sure you are loading fontawesome fonts.
 
 # Author
 Diego J. Romero López is a Software Engineer at intelligenia and can be contacted by email at diegojREMOVETHISromerolopezREMOVETHIS@gmail.com.
