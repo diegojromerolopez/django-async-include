@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 import json
+import uuid
 
 from django import template
 from django.contrib.contenttypes.models import ContentType
@@ -11,26 +12,39 @@ from django.utils.text import slugify
 from django.core import serializers
 from django.forms.models import model_to_dict
 
+
 register = template.Library()
 
 
+# Async include template tag. Prepares data to be sent to the server and loads the
+# rendered template by using AJAX
 @register.simple_tag(takes_context=True)
 def async_include(context, template_path, *args, **kwargs):
     t = loader.get_template('async_include/template_tag.html')
 
-    replacements = {"template_path": template_path, "block_id": slugify(template_path), "context": {}}
+    # Unique block id (uniqueness based on UUID)
+    block_id = "{0}-{1}".format(slugify(template_path.replace("/", "-")), uuid.uuid4().urn[9:])
+
+    replacements = {"template_path": template_path, "block_id": block_id, "context": {}}
 
     for context_object_name, context_object in kwargs.items():
+        # For each passed parameter, it can be a model object or a safe value (string or number)
         is_model_object = hasattr(context_object, "id") and hasattr(context_object.__class__, "__name__")
+
+        # We store a reference of the model object based on its model name, app and id
+        # We will send this data to the view to load there this object
         if is_model_object:
             object_id = context_object.id
             model = context_object.__class__.__name__
             app_name = ContentType.objects.get_for_model(context_object).app_label
             replacements["context"][context_object_name] = {"type": "model", "id": object_id, "app_name": app_name, "model": model}
+
+        # Safe values are sent "as is" to the view that will render the template
         else:
             replacements["context"][context_object_name] = {"type": "safe_value", "value": context_object}
 
-
+    # Serialization of context that will be sent
     replacements["context"] = json.dumps(replacements["context"])
 
+    # Render the template of this template tag
     return t.render(Context(replacements))
