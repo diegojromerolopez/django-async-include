@@ -6,6 +6,7 @@ import hashlib
 import json
 
 from . import crypto
+from django.db.models.query import RawQuerySet
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader, Context
@@ -43,8 +44,9 @@ def get_template(request):
         # If the value is a QuerySet we include it in the template replacements
         elif object_type == "QuerySet":
             # Loading the model
-            model_name = context_object_load_params["model"]
-            model = apps.get_model(context_object_load_params["app_name"], model_name)
+            #model_name = context_object_load_params["model"]
+            #model = apps.get_model(context_object_load_params["app_name"], model_name)
+            params = context_object_load_params["params"]
 
             try:
                 # Decryption of the data
@@ -55,7 +57,7 @@ def get_template(request):
                     tag=context_object_load_params["tag"]
                 )
                 # Loading the object and including it as a replacement
-                replacements[context_object_name] = model.objects.raw(raw_query)
+                replacements[context_object_name] = RawQuerySet(raw_query=raw_query, params=params)
             except ValueError:
                 pass
 
