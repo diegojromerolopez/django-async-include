@@ -106,6 +106,8 @@ without any problem.
 
 ## Examples
 
+### Pasing an object 
+
 ```html
 {% load async_include %}
 
@@ -113,6 +115,16 @@ without any problem.
 
 {# Load the template and informs the board object is required for the included template  #}
 {% async_include "boards/components/view/current_percentage_of_completion.html" board=board %}
+```
+
+### Pasing a QuerySet
+
+```html
+{% load async_include %}
+
+{# .. #}
+
+{% async_include "boards/components/view/summary.html" board=board member=member next_due_date_cards=next_due_date_cards %}
 ```
 
 # Customization
