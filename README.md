@@ -6,7 +6,16 @@ Asynchronous inclusion of Django templates
 This is a project to help the ajax load of chunks of HTML with minimal effort on the developer side,
 providing an easy way to improve web-site experience for your users by minimizing perceived loading times.
 
-This application 
+# How does it work?
+
+The async_include template tag sends the context to the server using an AJAX request.
+
+In the case of model objects, it sends the model, application and id. In the case of QuerySets,
+it sends the encrypted parametriced SQL. Of course, in the case of safe values like strings, booleans or numbers
+this data are send "as is".
+
+The receiver is a basic view of this application that renders the template with the received context and
+returns it in the AJAX call.
 
 # Requirements
 
