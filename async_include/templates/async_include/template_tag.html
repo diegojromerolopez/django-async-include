@@ -1,0 +1,23 @@
+<div id="{{block_id}}">
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var context = {{context|safe}};
+            var post_data = {
+                path: "{{template_path}}",
+                context: context
+            };
+            $.ajax({
+                type: "POST",
+                url: "{% url 'async_include:get_template' %}",
+                processData: false,
+                contentType: 'application/json',
+                data: JSON.stringify(post_data),
+                success: function(response_data) {
+                    console.log(response_data);
+                    $("#{{block_id}}").html(response_data);
+                }
+            });
+        });
+    </script>
+    {% include "async_include/spinner.html" %}
+</div>
