@@ -99,7 +99,7 @@ need in your included template as named parameters of the **async_include** temp
 ## Warning
 
 No dynamic attribute will be passed to the templates given that only a reference to it is passed from the caller to the
-included template callee. **Don't use dynamic attributes insied an async_included template**.
+included template callee. **Don't use dynamic attributes inside an async_included template**.
 
 Howewer, the full object will be passed to the async_included template, so you could call its methods and properties
 without any problem.
@@ -133,6 +133,10 @@ Overwrite **async_include/spinner.html** template if you want to change the spin
 background image or a image. Otherwise, make sure you are loading fontawesome fonts.
 
 # Author
-Diego J. Romero López is a Software Engineer at intelligenia and can be contacted by email at diegojREMOVETHISromerolopezREMOVETHIS@gmail.com.
+Diego J. Romero López is a Software Engineer at intelligenia.
+
+This project is in no way endorsed or related in any way to my past or current employers.
+
+Contact me by email at diegojREMOVETHISromerolopezREMOVETHIS@gmail.com.
 
 Remove REMOVETHIS to read the real email address.
