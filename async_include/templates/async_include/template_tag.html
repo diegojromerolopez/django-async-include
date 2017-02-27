@@ -18,7 +18,6 @@
                     contentType: 'application/json',
                     data: JSON.stringify(post_data),
                     success: function(response_data) {
-                        console.log(response_data);
                         $("#{{block_id}}").html(response_data);
                     }
                 });
