@@ -105,13 +105,29 @@ need in your included template as named parameters of the **async_include** temp
 {% async_include "<path of the >" <object1_name>=<object1> <object2_name>=<object2> ... <objectN_name>=<objectN>  %}
 ```
 
-## Warning
+## Warning and limitations
+
+### Object dynamic attributes
 
 No dynamic attribute will be passed to the templates given that only a reference to it is passed from the caller to the
 included template callee. **Don't use dynamic attributes inside an async_included template**.
 
 Howewer, the full object will be passed to the async_included template, so you could call its methods and properties
 without any problem.
+
+### QuerySets
+
+Each QuerySet is passed as encrypted SQL and converted on the receiver to a RawQuerySet.
+
+RawQuerySet has no __len__ method so length filter returns allways 0.
+
+To fix this we have implemented a new version of the length filter that will be loaded in your template if you overwrite
+
+```html
+{% load async_included %}
+```
+
+Note that this templatetag file is **async_included**, ending in **ed**.
 
 ## Examples
 
