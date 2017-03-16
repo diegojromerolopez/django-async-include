@@ -1,6 +1,10 @@
 Changes
 =======
 
+Version 0.2
+-------------
+* Use jsonpickle to serialize without worrying of complex objects.
+
 Version 0.1
 -------------
 
