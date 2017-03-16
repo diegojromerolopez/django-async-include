@@ -6,6 +6,7 @@ import hashlib
 import uuid
 
 from .. import crypto
+from .. import checksum
 
 from django.conf import settings
 from django import template
@@ -42,11 +43,13 @@ def async_include(context, template_path, *args, **kwargs):
             object_id = context_object.id
             model_name = context_object.__class__.__name__
             app_name = ContentType.objects.get_for_model(context_object).app_label
+            model_object_as_str = "{0}-{1}-{2}".format(app_name, model_name, object_id)
             replacements["context"][context_object_name] = {
                 "type": "model",
                 "id": object_id,
                 "app_name": app_name,
-                "model": model_name
+                "model": model_name,
+                "__checksum__": checksum.make(model_object_as_str)
             }
 
         elif type(context_object) == QuerySet:
@@ -65,12 +68,18 @@ def async_include(context, template_path, *args, **kwargs):
                 "nonce": nonce.decode("latin-1"),
                 "tag": tag.decode("latin-1"),
                 "app_name": app_name,
-                "model": model_name
+                "model": model_name,
             }
 
         # Safe values are sent "as is" to the view that will render the template
         else:
-            replacements["context"][context_object_name] = {"type": "safe_value", "value": context_object}
+            context_object_as_str = "{0}".format(context_object)
+            replacements["context"][context_object_name] = {
+                "type": "safe_value",
+                "value": context_object,
+                "value_as_str": context_object_as_str,
+                "__checksum__": checksum.make(context_object_as_str)
+            }
 
     # Serialization of context that will be sent
     replacements["context"] = jsonpickle.dumps(replacements["context"])
