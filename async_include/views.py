@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 import hashlib
-import json
+import jsonpickle
 
 from . import crypto
 from django.db.models.query import RawQuerySet
@@ -19,7 +19,11 @@ from django.apps import apps
 # Return the template with the remote context replaced
 def get_template(request):
 
-    json_body = json.loads(request.body)
+    # POST request is mandatory
+    if request.method != "POST":
+        return HttpResponse(status=400)
+
+    json_body = jsonpickle.loads(request.body)
 
     path = json_body.get("path")
 

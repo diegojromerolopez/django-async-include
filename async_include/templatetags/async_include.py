@@ -3,13 +3,13 @@
 from __future__ import unicode_literals
 
 import hashlib
-import json
 import uuid
 
 from .. import crypto
 
 from django.conf import settings
 from django import template
+import jsonpickle
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.template import loader, Context
@@ -73,7 +73,7 @@ def async_include(context, template_path, *args, **kwargs):
             replacements["context"][context_object_name] = {"type": "safe_value", "value": context_object}
 
     # Serialization of context that will be sent
-    replacements["context"] = json.dumps(replacements["context"])
+    replacements["context"] = jsonpickle.dumps(replacements["context"])
 
     # Render the template of this template tag
     return t.render(Context(replacements))

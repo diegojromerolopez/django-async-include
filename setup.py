@@ -44,7 +44,7 @@ for dirpath, dirnames, filenames in os.walk('.'):
 
 setup(
     name="django-async-include",
-    version="0.1",
+    version="0.2",
     author="Diego J. Romero López",
     author_email="diegojromerolopez@gmail.com",
     description="A simple application for Django to include (and fetch) asynchronous templates.",
@@ -55,7 +55,8 @@ setup(
         'License :: OSI Approved :: MIT License',
     ],
     install_requires=[
-        "pycryptodome"
+        "pycryptodome",
+        "jsonpickle"
     ],
     license="MIT",
     keywords="django template asynchronous template_tag",
