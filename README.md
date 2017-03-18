@@ -158,7 +158,21 @@ Note that this templatetag file is **async_included**, ending in **ed**.
 {% async_include "boards/components/view/summary.html" board=board member=member next_due_date_cards=next_due_date_cards %}
 ```
 
-### Customizing block wrapper html tag
+
+# Customization
+
+## Spinner
+
+Overwrite **async_include/spinner.html** template if you want to change the spinner from fontawesome one (default) by a
+background image or a image. Otherwise, make sure you are loading fontawesome fonts.
+
+Note that the spinner must have class **async_included-spinner**. Otherwise spinner behavior is going to be impredictable.
+
+## Block wrapper html tag
+
+Wrapper tag is **div** and maybe you don't want that. Set html__tag optional  parameter to the name of the tag you need in that particular context.
+
+Example:
 
 ```html
 {% load async_include %}
@@ -169,10 +183,21 @@ Note that this templatetag file is **async_included**, ending in **ed**.
 {% async_include "boards/components/view/last_comments.html" board=board html__tag='li' %}
 ```
 
-# Customization
+## Request frequency
 
-Overwrite **async_include/spinner.html** template if you want to change the spinner from fontawesome one (default) by a
-background image or a image. Otherwise, make sure you are loading fontawesome fonts.
+If do you want to make frequent requests, set request__frequency to the number of seconds you want
+to make the requests.
+
+Example:
+
+```html
+{% load async_include %}
+
+{# .. #}
+
+{# Upate the last comments each 60 seconds #}
+{% async_include "boards/components/view/last_comments.html" board=board request__frequency=60 %}
+```
 
 # Author
 Diego J. Romero López is a Software Engineer at intelligenia.

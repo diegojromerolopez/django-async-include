@@ -29,12 +29,21 @@ def async_include(context, template_path, *args, **kwargs):
     t = loader.get_template('async_include/template_tag.html')
 
     # Unique block id (uniqueness based on UUID)
-    block_id = "{0}-{1}".format(slugify(template_path.replace("/", "-")), uuid.uuid4().urn[9:])
+    block_id = "{0}__{1}".format(slugify(template_path.replace("/", "_")), uuid.uuid4().urn[9:].replace("-", ""))
 
     # Give the possibility to customize the HTML tag
     html__tag = kwargs.pop("html__tag", "div")
 
-    replacements = {"template_path": template_path, "block_id": block_id, "html__tag": html__tag, "context": {}}
+    # Recurrent requests
+    request__frequency = kwargs.pop("request__frequency", "once")
+
+    replacements = {
+        "template_path": template_path,
+        "block_id": block_id,
+        "html__tag": html__tag,
+        "request__frequency": request__frequency,
+        "context": {}
+    }
 
     for context_object_name, context_object in kwargs.items():
         # For each passed parameter, it can be a model object or a safe value (string or number)
