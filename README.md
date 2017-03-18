@@ -152,6 +152,17 @@ Note that this templatetag file is **async_included**, ending in **ed**.
 {% async_include "boards/components/view/summary.html" board=board member=member next_due_date_cards=next_due_date_cards %}
 ```
 
+### Customizing block wrapper html tag
+
+```html
+{% load async_include %}
+
+{# .. #}
+
+{# Will be replaced by <li></li> block insted of <div></div> #}
+{% async_include "boards/components/view/last_comments.html" board=board html__tag='li' %}
+```
+
 # Customization
 
 Overwrite **async_include/spinner.html** template if you want to change the spinner from fontawesome one (default) by a

@@ -1,4 +1,4 @@
-<div id="{{block_id}}" class="async_included-block">
+<{{html__tag}} id="{{block_id}}" class="async_included-block">
     <script type="text/javascript">
         if (typeof jQuery == 'undefined') {
             if(console) {
@@ -25,4 +25,4 @@
         }
     </script>
     {% include "async_include/spinner.html" %}
-</div>
+</{{html__tag}}>
