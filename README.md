@@ -6,6 +6,8 @@ Asynchronous inclusion of Django templates
 This is a project to help the ajax load of chunks of HTML with minimal effort on the developer side,
 providing an easy way to improve web-site experience for your users by minimizing perceived loading times.
 
+[This is the development repository](https://github.com/diegojromerolopez/django-async-include).
+
 # How does it work?
 
 The async_include template tag sends the context to the server using an AJAX request.
@@ -51,9 +53,13 @@ the default fontawesome style.
 
 ## Using pip
 
+[This package is in pypi](https://pypi.python.org/pypi/django-async-include) so you only have to write:
+
 ```sh
 pip install django-async-include
 ```
+
+to install it.
 
 ## Install master version
 
