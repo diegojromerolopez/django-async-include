@@ -42,6 +42,11 @@
                             let block_width = $("#{{block_id}}").width();
                             $("#{{block_id}}").children(".async_included-spinner").width(block_width).hide();
                         }
+                    },
+                    error: function(response_data){
+                        if(request_frequency != "once"){
+                            clearInterval(make_request_interval_{{block_id}}_id);
+                        }
                     }
                 });
             };
