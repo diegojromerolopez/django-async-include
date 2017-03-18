@@ -17,7 +17,7 @@ this data are send "as is".
 The receiver is a basic view of this application that renders the template with the received context and
 returns it in the AJAX call.
 
-# Requirements
+# Requirements
 
 This application only depends on [pycryptodome](https://github.com/Legrandin/pycryptodome) and [jsonpickle](https://jsonpickle.github.io/).
 
