@@ -85,9 +85,9 @@ def get_template(request):
             value_as_str = context_object_load_params["value_as_str"]
             # Checking if JSON has been tampered
             if context_object_load_params["__checksum__"] != checksum.make(value_as_str):
-                print context_object_name
-                print value
-                print value_as_str
+                print(context_object_name)
+                print(value)
+                print(value_as_str)
                 raise AssertionError("JSON tampering detected when loading safe value for attribute '{0}'. Value: '{1}'".format(context_object_name, value_as_str))
 
             # Including the safe value as a replacement
