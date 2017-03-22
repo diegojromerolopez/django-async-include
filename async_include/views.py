@@ -24,10 +24,8 @@ def get_template(request):
     if request.method != "POST":
         return HttpResponse(status=400)
 
-    json_body = jsonpickle.loads(request.body)
-
+    json_body = jsonpickle.loads(request.body.decode('utf-8'))
     path = json_body.get("path")
-
     # Remote context
     # The caller has sent the model objects and safe values (strings, numbers, etc.) as a dict with
     # the app_labels, model and id
