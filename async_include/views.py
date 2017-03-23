@@ -7,27 +7,25 @@ import jsonpickle
 
 from . import checksum
 from . import crypto
+from django.apps import apps
+from django.conf import settings
 from django.db.models.query import RawQuerySet
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader, Context
-
-from django.conf import settings
-
-from django.apps import apps
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Return the template with the remote context replaced
+@csrf_exempt
 def get_template(request):
 
     # POST request is mandatory
     if request.method != "POST":
         return HttpResponse(status=400)
 
-    json_body = jsonpickle.loads(request.body)
-
+    json_body = jsonpickle.loads(request.body.decode('utf-8'))
     path = json_body.get("path")
-
     # Remote context
     # The caller has sent the model objects and safe values (strings, numbers, etc.) as a dict with
     # the app_labels, model and id
@@ -85,9 +83,9 @@ def get_template(request):
             value_as_str = context_object_load_params["value_as_str"]
             # Checking if JSON has been tampered
             if context_object_load_params["__checksum__"] != checksum.make(value_as_str):
-                print context_object_name
-                print value
-                print value_as_str
+                print(context_object_name)
+                print(value)
+                print(value_as_str)
                 raise AssertionError("JSON tampering detected when loading safe value for attribute '{0}'. Value: '{1}'".format(context_object_name, value_as_str))
 
             # Including the safe value as a replacement
