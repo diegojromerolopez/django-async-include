@@ -170,7 +170,7 @@ Note that the spinner must have class **async_included-spinner**. Otherwise spin
 
 ## Block wrapper html tag
 
-Wrapper tag is **div** and maybe you don't want that. Set html__tag optional  parameter to the name of the tag you need in that particular context.
+Wrapper tag is **div** and maybe you don't want that. Set **html__tag** optional  parameter to the name of the tag you need in that particular context.
 
 Example:
 
@@ -181,6 +181,20 @@ Example:
 
 {# Will be replaced by <li></li> block insted of <div></div> #}
 {% async_include "boards/components/view/last_comments.html" board=board html__tag='li' %}
+```
+
+## Block wrapper html tag class
+
+Customize the wrapper class by passing **html__tag__class** optional parameter to the template tag.
+
+```html
+{% load async_include %}
+
+{# .. #}
+
+{# Will be replaced by <li></li> block insted of <div></div> #}
+{# Class last_comments will be added to wrapper class #}
+{% async_include "boards/components/view/last_comments.html" board=board html__tag='li' html__tag__class='last_comments' %}
 ```
 
 ## Request frequency

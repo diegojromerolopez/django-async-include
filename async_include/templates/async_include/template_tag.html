@@ -13,7 +13,7 @@
             };
 
             // Make request function as an unique name
-            function make_request__{{block_id}}(){
+            make_request__{{block_id}} = function (){
                 // Delete previous content unless it is the spinner, of course
                 $("#{{block_id}}").children(":not(.async_included-spinner)").remove();
 
@@ -60,6 +60,6 @@
     }
 </script>
 
-<{{html__tag}} id="{{block_id}}" class="async_included-block">
+<{{html__tag}} id="{{block_id}}" class="async_included-block {{html__tag__class}}" data-request-function="make_request__{{block_id}}">
     {% include "async_include/spinner.html" %}
 </{{html__tag}}>
