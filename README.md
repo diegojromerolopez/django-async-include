@@ -168,6 +168,34 @@ background image or a image. Otherwise, make sure you are loading fontawesome fo
 
 Note that the spinner must have class **async_included-spinner**. Otherwise spinner behavior is going to be impredictable.
 
+### Show/Hide spinner
+
+Including the optional parameter **spinner__visible=False** when calling the async_include template tag will not show the spinner block.
+
+```html
+{% load async_include %}
+
+{# .. #}
+
+{# Will not show the spinner #}
+{% async_include "boards/components/view/last_comments.html" board=board spinner__visible=False %}
+```
+
+### Customize spinner template per async_include template tag call
+
+Use the optional parameter **spinner__template_path** to set a diferrent template path for an specific async_include call in your templates.
+
+```html
+{% load async_include %}
+
+{# .. #}
+
+{# Will not show the spinner #}
+{% async_include "boards/components/view/last_comments.html" board=board spinner__template_path="templates/comments/last_comments_spinner.html" %}
+```
+
+Remember the spinner tag should contain the **async_included-spinner** class.
+
 ## Block wrapper html tag
 
 Wrapper tag is **div** and maybe you don't want that. Set **html__tag** optional  parameter to the name of the tag you need in that particular context.
