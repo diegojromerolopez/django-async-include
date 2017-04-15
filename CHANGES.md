@@ -1,6 +1,12 @@
 Changes
 =======
 
+Version 0.5
+-----------
+
+* Show/Hide spinner.
+* Customice spinner template used in each async_include call.
+
 Version 0.4
 -------------
 
