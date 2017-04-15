@@ -112,4 +112,9 @@ def async_include(context, template_path, *args, **kwargs):
     replacements["context"] = jsonpickle.dumps(replacements["context"])
 
     # Render the template of this template tag
-    return t.render(Context(replacements))
+    try:
+        # Django < 1.11
+        return t.render(Context(replacements))
+    except TypeError:
+        # Django >= 1.11
+        return t.render(replacements)

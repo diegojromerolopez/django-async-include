@@ -4,6 +4,7 @@ Changes
 Version 0.5
 -----------
 
+* Support for Django 1.11.
 * Show/Hide spinner.
 * Customice spinner template used in each async_include call.
 
