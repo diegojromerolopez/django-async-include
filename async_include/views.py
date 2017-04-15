@@ -2,17 +2,14 @@
 
 from __future__ import unicode_literals
 
-import hashlib
 import jsonpickle
 
 from . import checksum
 from . import crypto
 from django.apps import apps
 from django.conf import settings
-from django.db.models.query import RawQuerySet
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import loader, Context
 from django.views.decorators.csrf import csrf_exempt
 
 

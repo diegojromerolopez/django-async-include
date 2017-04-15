@@ -8,10 +8,6 @@ from django.db.models.query import RawQuerySet
 from django import template
 from django.template.defaultfilters import length as django_length
 
-import hashlib
-import json
-import uuid
-
 
 register = template.Library()
 

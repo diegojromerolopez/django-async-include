@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-import hashlib
+import jsonpickle
 import uuid
 
 from .. import crypto
@@ -10,13 +10,10 @@ from .. import checksum
 
 from django.conf import settings
 from django import template
-import jsonpickle
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.template import loader, Context
 from django.utils.text import slugify
-from django.core import serializers
-from django.forms.models import model_to_dict
 
 
 register = template.Library()
@@ -112,4 +109,9 @@ def async_include(context, template_path, *args, **kwargs):
     replacements["context"] = jsonpickle.dumps(replacements["context"])
 
     # Render the template of this template tag
-    return t.render(Context(replacements))
+    try:
+        # Django < 1.11
+        return t.render(Context(replacements))
+    except TypeError:
+        # Django >= 1.11
+        return t.render(replacements)
