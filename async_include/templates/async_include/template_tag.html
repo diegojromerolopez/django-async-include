@@ -61,5 +61,7 @@
 </script>
 
 <{{html__tag}} id="{{block_id}}" class="async_included-block {{html__tag__class}}" data-request-function="make_request__{{block_id}}">
-    {% include "async_include/spinner.html" %}
+    {% if spinner__visible %}
+        {% include spinner__template_path %}
+    {% endif %}
 </{{html__tag}}>

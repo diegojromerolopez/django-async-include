@@ -40,6 +40,12 @@ def async_include(context, template_path, *args, **kwargs):
     # HTML tag class
     html__tag__class = kwargs.pop("html__tag__class", slugified_template_path)
 
+    # Shall we show a spinner?
+    spinner__visible = kwargs.pop("spinner__visible", True)
+
+    # Spinner template path
+    spinner__template_path = kwargs.pop("spinner__template_path", "async_include/spinner.html")
+
     # Recurrent requests
     request__frequency = kwargs.pop("request__frequency", "once")
 
@@ -48,6 +54,8 @@ def async_include(context, template_path, *args, **kwargs):
         "block_id": block_id,
         "html__tag": html__tag,
         "html__tag__class": html__tag__class,
+        "spinner__visible": spinner__visible,
+        "spinner__template_path": spinner__template_path,
         "request__frequency": request__frequency,
         "context": {}
     }
