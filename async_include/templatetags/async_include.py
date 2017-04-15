@@ -28,11 +28,23 @@ register = template.Library()
 def async_include(context, template_path, *args, **kwargs):
     t = loader.get_template('async_include/template_tag.html')
 
+    # Slugified temlate path. It will be used in the block_id and as a class of this block
+    slugified_template_path = slugify(template_path.replace("/", "_"))
+
     # Unique block id (uniqueness based on UUID)
-    block_id = "{0}__{1}".format(slugify(template_path.replace("/", "_")), uuid.uuid4().urn[9:].replace("-", ""))
+    block_id = "{0}__{1}".format(slugified_template_path, uuid.uuid4().urn[9:].replace("-", ""))
 
     # Give the possibility to customize the HTML tag
     html__tag = kwargs.pop("html__tag", "div")
+
+    # HTML tag class
+    html__tag__class = kwargs.pop("html__tag__class", slugified_template_path)
+
+    # Shall we show a spinner?
+    spinner__visible = kwargs.pop("spinner__visible", True)
+
+    # Spinner template path
+    spinner__template_path = kwargs.pop("spinner__template_path", "async_include/spinner.html")
 
     # Recurrent requests
     request__frequency = kwargs.pop("request__frequency", "once")
@@ -41,6 +53,9 @@ def async_include(context, template_path, *args, **kwargs):
         "template_path": template_path,
         "block_id": block_id,
         "html__tag": html__tag,
+        "html__tag__class": html__tag__class,
+        "spinner__visible": spinner__visible,
+        "spinner__template_path": spinner__template_path,
         "request__frequency": request__frequency,
         "context": {}
     }

@@ -1,6 +1,19 @@
 Changes
 =======
 
+Version 0.5
+-----------
+
+* Show/Hide spinner.
+* Customice spinner template used in each async_include call.
+
+Version 0.4
+-------------
+
+* Adding a class to the wrapper.
+* Defining the function as global function to enable recalling it.
+* Python 3 support.
+
 Version 0.2
 -------------
 * Use jsonpickle to serialize without worrying of complex objects.
