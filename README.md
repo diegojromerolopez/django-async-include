@@ -251,5 +251,3 @@ Contact me by email at diegojREMOVETHISromerolopezREMOVETHIS@gmail.com.
 # Contributors
 
 - [Erik Telepovský](https://github.com/eriktelepovsky): bug fixes, modern mobile browser, PyPy, and Python3 support.
-
-Remove REMOVETHIS to read the real email address.
