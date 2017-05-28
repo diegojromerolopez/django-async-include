@@ -241,11 +241,15 @@ Example:
 {% async_include "boards/components/view/last_comments.html" board=board request__frequency=60 %}
 ```
 
-# Author
-Diego J. Romero López is a Software Engineer at intelligenia.
+# Main author
+Diego J. Romero-López is a Software Engineer at intelligenia.
 
 This project is in no way endorsed or related in any way to my past or current employers.
 
 Contact me by email at diegojREMOVETHISromerolopezREMOVETHIS@gmail.com.
+
+# Contributors
+
+- [Erik Telepovský](https://github.com/eriktelepovsky): bug fixes, modern mobile browser, PyPy, and Python3 support.
 
 Remove REMOVETHIS to read the real email address.

@@ -1,6 +1,12 @@
 Changes
 =======
 
+Version 0.5.1
+-----------
+
+* Support for modern mobile browsers.
+* Fixing unicode objects hashing.
+
 Version 0.5
 -----------
 
