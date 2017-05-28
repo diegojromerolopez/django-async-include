@@ -8,4 +8,9 @@ import hashlib
 
 
 def make(string):
-    return hashlib.md5("{0}-{1}".format(string, settings.SECRET_KEY)).hexdigest()
+    key = "{0}-{1}".format(string, settings.SECRET_KEY)
+
+    try:
+        return hashlib.md5(key).hexdigest()
+    except TypeError:
+        return hashlib.md5(key.encode('utf-8')).hexdigest()
