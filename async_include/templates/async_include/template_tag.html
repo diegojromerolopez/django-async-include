@@ -5,9 +5,9 @@
         }
     } else {
         $(document).ready(function(){
-            let context = {{context|safe}};
-            let request_frequency = "{{request__frequency}}";
-            let post_data = {
+            var context = {{context|safe}};
+            var request_frequency = "{{request__frequency}}";
+            var post_data = {
                 path: "{{template_path}}",
                 context: context
             };
@@ -20,7 +20,7 @@
                 // Show the spinner
                 // Note that we try to don't change layout in next requests forcing it to have block's final width
                 if(request_frequency != "once"){
-                    let block_display = $("#{{block_id}}").css("display");
+                    var block_display = $("#{{block_id}}").css("display");
                     $("#{{block_id}}").children(".async_included-spinner").css("display", block_display);
                 }else{
                     $("#{{block_id}}").children(".async_included-spinner").show();
@@ -39,7 +39,7 @@
                             $("#script_{{block_id}}").remove();
                         }else{
                             $("#{{block_id}}").append(response_data);
-                            let block_width = $("#{{block_id}}").width();
+                            var block_width = $("#{{block_id}}").width();
                             $("#{{block_id}}").children(".async_included-spinner").width(block_width).hide();
                         }
                     },
