@@ -1,6 +1,11 @@
 Changes
 =======
 
+Version 0.5.2
+-------------
+
+* Fix error that made not accepting template paths with '-' char.
+
 Version 0.5.1
 -----------
 
