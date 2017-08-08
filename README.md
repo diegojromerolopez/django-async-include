@@ -242,7 +242,7 @@ Example:
 ```
 
 # Main author
-Diego J. Romero-López is a Software Engineer at intelligenia.
+Diego J. Romero-López is a Software Engineer at [Drivies](https://www.driviesapp.com/).
 
 This project is in no way endorsed or related in any way to my past or current employers.
 
