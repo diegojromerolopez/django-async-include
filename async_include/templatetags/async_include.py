@@ -26,7 +26,7 @@ def async_include(context, template_path, *args, **kwargs):
     t = loader.get_template('async_include/template_tag.html')
 
     # Slugified temlate path. It will be used in the block_id and as a class of this block
-    slugified_template_path = slugify(template_path.replace("/", "_"))
+    slugified_template_path = slugify(template_path.replace("/", "_").replace("-", "_"))
 
     # Unique block id (uniqueness based on UUID)
     block_id = "{0}__{1}".format(slugified_template_path, uuid.uuid4().urn[9:].replace("-", ""))
