@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    {# Load the async_include template tag at the top of your template file #}
+    {% load async_include %}
+
+    {# Call the async_include template tag indicating what objects needs to replace it #}
+    {% async_include "included_template.html" parent_context=context %}
+</body>
+</html>

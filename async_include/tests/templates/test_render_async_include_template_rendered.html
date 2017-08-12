@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    
+    
+
+    
+    <script id="script_included_templatehtml__1" type="text/javascript">
+    if (typeof jQuery == 'undefined') {
+        if(console) {
+            console.error("jQuery is not loaded and is required by async_include. Please, load it in HEAD block.");
+        }
+    } else {
+        $(document).ready(function(){
+            var context = {"parent_context": {"__checksum__": "26a72116246908fb216fa66e2a92324d", "value_as_str": "", "type": "safe_value", "value": ""}};
+            var request_frequency = "once";
+            var post_data = {
+                path: "included_template.html",
+                context: context
+            };
+
+            // Make request function as an unique name
+            make_request__included_templatehtml__1 = function (){
+                // Delete previous content unless it is the spinner, of course
+                $("#included_templatehtml__1").children(":not(.async_included-spinner)").remove();
+
+                // Show the spinner
+                // Note that we try to don't change layout in next requests forcing it to have block's final width
+                if(request_frequency != "once"){
+                    var block_display = $("#included_templatehtml__1").css("display");
+                    $("#included_templatehtml__1").children(".async_included-spinner").css("display", block_display);
+                }else{
+                    $("#included_templatehtml__1").children(".async_included-spinner").show();
+                }
+
+                // Make the AJAX request
+                $.ajax({
+                    type: "POST",
+                    url: "/async_include/get",
+                    processData: false,
+                    contentType: 'application/json',
+                    data: JSON.stringify(post_data),
+                    success: function(response_data) {
+                        if(request_frequency == "once"){
+                            $("#included_templatehtml__1").html(response_data);
+                            $("#script_included_templatehtml__1").remove();
+                        }else{
+                            $("#included_templatehtml__1").append(response_data);
+                            var block_width = $("#included_templatehtml__1").width();
+                            $("#included_templatehtml__1").children(".async_included-spinner").width(block_width).hide();
+                        }
+                    },
+                    error: function(response_data){
+                        if(request_frequency != "once"){
+                            clearInterval(make_request_interval_included_templatehtml__1_id);
+                        }
+                    }
+                });
+            };
+            if(request_frequency == "once"){
+                make_request__included_templatehtml__1();
+            } else if($.isNumeric(request_frequency) && request_frequency > 0){
+                make_request__included_templatehtml__1();
+                make_request_interval_included_templatehtml__1_id = setInterval(make_request__included_templatehtml__1, request_frequency*1000);
+            }
+        });
+    }
+</script>
+
+<div id="included_templatehtml__1" class="async_included-block included_templatehtml" data-request-function="make_request__included_templatehtml__1">
+    
+        <span class="fa fa-spinner fa-spin fa-2x async_included-spinner"></span>
+
+
+    
+</div>
+</body>
+</html>
