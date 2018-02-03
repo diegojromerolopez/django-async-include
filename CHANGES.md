@@ -1,6 +1,17 @@
 Changes
 =======
 
+Version 0.5.2
+-------------
+
+* Fix error that made not accepting template paths with '-' char.
+
+Version 0.5.1
+-----------
+
+* Support for modern mobile browsers.
+* Fixing unicode objects hashing.
+
 Version 0.5
 -----------
 

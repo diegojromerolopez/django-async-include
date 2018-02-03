@@ -20,6 +20,25 @@ from django.utils.translation import get_language
 register = template.Library()
 
 
+# Unique template id
+def get_unique_template_id():
+    """
+    Get an unique id for a template as a string.
+    :return: an unique id for a template.
+    """
+    return uuid.uuid4().urn[9:].replace("-", "")
+
+
+def slugify_template_path(template_path):
+    """
+    Slugify template path.
+    Replaces everything that is not an alphanumeric character in the template path.
+    :param template_path: string with the template path.
+    :return: slug of the template path.
+    """
+    return slugify(template_path.replace("/", "_").replace("-", "_"))
+
+
 # Async include template tag. Prepares data to be sent to the server and loads the
 # rendered template by using AJAX
 @register.simple_tag(takes_context=True)
@@ -27,10 +46,10 @@ def async_include(context, template_path, *args, **kwargs):
     t = loader.get_template('async_include/template_tag.html')
 
     # Slugified temlate path. It will be used in the block_id and as a class of this block
-    slugified_template_path = slugify(template_path.replace("/", "_"))
+    slugified_template_path = slugify_template_path(template_path)
 
     # Unique block id (uniqueness based on UUID)
-    block_id = "{0}__{1}".format(slugified_template_path, uuid.uuid4().urn[9:].replace("-", ""))
+    block_id = "{0}__{1}".format(slugified_template_path, get_unique_template_id())
 
     # Give the possibility to customize the HTML tag
     html__tag = kwargs.pop("html__tag", "div")
