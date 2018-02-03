@@ -44,7 +44,7 @@ for dirpath, dirnames, filenames in os.walk('.'):
 
 setup(
     name="django-async-include",
-    version="0.6",
+    version="0.6.1",
     author="Diego J. Romero López",
     author_email="diegojromerolopez@gmail.com",
     description="A simple application for Django to include (and fetch) asynchronous templates.",
