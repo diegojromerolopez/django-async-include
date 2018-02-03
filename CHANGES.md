@@ -1,6 +1,11 @@
 Changes
 =======
 
+Version 0.6.1
+-------------
+
+* Update docs.
+
 Version 0.6
 -----------
 
