@@ -14,6 +14,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from django.template import loader, Context
 from django.utils.text import slugify
+from django.utils.translation import get_language
 
 
 register = template.Library()
@@ -126,6 +127,9 @@ def async_include(context, template_path, *args, **kwargs):
 
     # Serialization of context that will be sent
     replacements["context"] = jsonpickle.dumps(replacements["context"])
+
+    # Pass language code
+    replacements["language_code"] = get_language()
 
     # Render the template of this template tag
     try:

@@ -10,6 +10,7 @@ from django.apps import apps
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.utils import translation
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -23,10 +24,15 @@ def get_template(request):
 
     json_body = jsonpickle.loads(request.body.decode('utf-8'))
     path = json_body.get("path")
+
     # Remote context
     # The caller has sent the model objects and safe values (strings, numbers, etc.) as a dict with
     # the app_labels, model and id
     context = json_body.get("context")
+
+    # language
+    language_code = json_body.get("language_code")
+
     replacements = {}
 
     # For each remote context value, we load it again
@@ -84,6 +90,9 @@ def get_template(request):
 
             # Including the safe value as a replacement
             replacements[context_object_name] = value
+
+    # Activate the language
+    translation.activate(language_code)
 
     # Render the template
     return render(request, path, replacements)
