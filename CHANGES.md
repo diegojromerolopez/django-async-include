@@ -1,6 +1,11 @@
 Changes
 =======
 
+Version 0.5.3
+-------------
+
+* Force use fixed version of jsonpickle.
+
 Version 0.5.2
 -------------
 
