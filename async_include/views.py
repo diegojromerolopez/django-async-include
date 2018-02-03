@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 import jsonpickle
-from django.utils import translation
 
 from . import checksum
 from . import crypto
@@ -11,6 +10,7 @@ from django.apps import apps
 from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.utils import translation
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -91,6 +91,8 @@ def get_template(request):
             # Including the safe value as a replacement
             replacements[context_object_name] = value
 
-    # Render the template
+    # Activate the language
     translation.activate(language_code)
+
+    # Render the template
     return render(request, path, replacements)
