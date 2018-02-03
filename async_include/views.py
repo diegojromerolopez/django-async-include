@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 import jsonpickle
+from django.utils import translation
 
 from . import checksum
 from . import crypto
@@ -23,10 +24,15 @@ def get_template(request):
 
     json_body = jsonpickle.loads(request.body.decode('utf-8'))
     path = json_body.get("path")
+
     # Remote context
     # The caller has sent the model objects and safe values (strings, numbers, etc.) as a dict with
     # the app_labels, model and id
     context = json_body.get("context")
+
+    # language
+    language_code = json_body.get("language_code")
+
     replacements = {}
 
     # For each remote context value, we load it again
@@ -86,4 +92,5 @@ def get_template(request):
             replacements[context_object_name] = value
 
     # Render the template
+    translation.activate(language_code)
     return render(request, path, replacements)
