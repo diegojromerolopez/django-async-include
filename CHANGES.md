@@ -1,6 +1,11 @@
 Changes
 =======
 
+Version 0.6
+-----------
+
+* Multi language support.
+
 Version 0.5.3
 -------------
 
