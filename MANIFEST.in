@@ -1,1 +1,2 @@
 recursive-include async_include/templates *
+include README.md

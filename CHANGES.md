@@ -1,6 +1,26 @@
 Changes
 =======
 
+Version 0.6.4
+-------------
+
+* Package cleanup.
+
+Version 0.6.1
+-------------
+
+* Update docs.
+
+Version 0.6
+-----------
+
+* Multi language support.
+
+Version 0.5.3
+-------------
+
+* Force use fixed version of jsonpickle.
+
 Version 0.5.2
 -------------
 
