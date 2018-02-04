@@ -1,6 +1,11 @@
 Changes
 =======
 
+Version 0.6.5
+-------------
+
+* Django 2.0 support.
+
 Version 0.6.4
 -------------
 
