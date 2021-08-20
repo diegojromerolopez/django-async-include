@@ -1,4 +1,14 @@
 # django-async-include
+
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/diegojromerolopez/django-async-include/graphs/commit-activity)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/django-async-include.svg)](https://pypi.python.org/pypi/django-async-include/)
+[![PyPI version gelidum](https://badge.fury.io/py/django-async-include.svg)](https://pypi.python.org/pypi/django-async-include/)
+[![PyPI status](https://img.shields.io/pypi/status/django-async-include.svg)](https://pypi.python.org/pypi/django-async-include/)
+[![PyPI download month](https://img.shields.io/pypi/dm/django-async-include.svg)](https://pypi.python.org/pypi/django-async-include/)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a795d65d98ec8e261709/maintainability)](https://codeclimate.com/github/diegojromerolopez/django-async-include/maintainability)
+
 Asynchronous inclusion of Django templates
 
 # What's this?
@@ -13,8 +23,8 @@ providing an easy way to improve web-site experience for your users by minimizin
 The async_include template tag sends the context to the server using an AJAX request.
 
 In the case of model objects, it sends the model, application and id. In the case of QuerySets,
-it sends the encrypted parametriced SQL. Of course, in the case of safe values like strings, booleans or numbers
-this data are send "as is".
+it sends the encrypted parametrized SQL. Of course, in the case of safe values like strings, booleans or numbers
+this data are sent "as is".
 
 The receiver is a basic view of this application that renders the template with the received context and
 returns it in the AJAX call.
@@ -23,7 +33,7 @@ returns it in the AJAX call.
 
 This application only depends on [pycryptodome](https://github.com/Legrandin/pycryptodome) and [jsonpickle](https://jsonpickle.github.io/).
 
-Of course you will need [Django](https://www.djangoproject.com/) version 1.10 or newer. I have no tested in lower versions of Django but it
+Of course, you will need [Django](https://www.djangoproject.com/) version 1.10 or newer. I have not tested in lower versions of Django but it
 should work fine with versions from 1.8 to 1.9.
 
 ## jQuery
@@ -137,7 +147,7 @@ Note that this templatetag file is **async_included**, ending in **ed**.
 
 ## Examples
 
-### Pasing an object 
+### Passing an object 
 
 ```html
 {% load async_include %}
@@ -148,7 +158,7 @@ Note that this templatetag file is **async_included**, ending in **ed**.
 {% async_include "boards/components/view/current_percentage_of_completion.html" board=board %}
 ```
 
-### Pasing a QuerySet
+### Passing a QuerySet
 
 ```html
 {% load async_include %}
@@ -166,7 +176,7 @@ Note that this templatetag file is **async_included**, ending in **ed**.
 Overwrite **async_include/spinner.html** template if you want to change the spinner from fontawesome one (default) by a
 background image or a image. Otherwise, make sure you are loading fontawesome fonts.
 
-Note that the spinner must have class **async_included-spinner**. Otherwise spinner behavior is going to be impredictable.
+Note that the spinner must have class **async_included-spinner**. Otherwise, the spinner behavior is going to be unpredictable.
 
 ### Show/Hide spinner
 
