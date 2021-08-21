@@ -112,6 +112,9 @@ need in your included template as named parameters of the **async_include** temp
 {% async_include "<path of the >" <object1_name>=<object1> <object2_name>=<object2> ... <objectN_name>=<objectN>  %}
 ```
 
+There is also a repository with a full example:
+[django-async-include-example](https://github.com/diegojromerolopez/django-async-include-example).
+
 ## Warning and limitations
 
 ### Object dynamic attributes
