@@ -3,7 +3,8 @@ Changes
 
 Version 0.6.6
 -------------
-
+* Removal of jQuery requirement.
+* Fix crypto.py errors in Python 3.
 * README typos are fixed.
 
 Version 0.6.5
