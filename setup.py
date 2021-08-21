@@ -35,8 +35,8 @@ setup(
         'Topic :: Software Development :: Libraries',
     ],
     install_requires=[
-        "pycryptodome",
-        "jsonpickle>=0.9.5"
+        "pycryptodome>=3.10.1",
+        "jsonpickle>=2.0.0"
     ],
     license="MIT",
     keywords="django template asynchronous template_tag",
