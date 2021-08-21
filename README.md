@@ -37,24 +37,13 @@ Of course, you will need [Django](https://www.djangoproject.com/) version 1.10 o
 should work fine with versions from 1.8 to 1.9.
 
 ## jQuery
-Having said that, this application needs [jQuery](https://jquery.com/) to fetch the templates. So make sure you have jquery loaded in your HEAD HTML section.
-
-The easiest way of including jQuery in your project is by [loading it from a CDN](https://code.jquery.com/):
-
-```html
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-```
-
-Beware of the version of jQuery if you are using bootstrap or other framework that can't work with jQuery's last version.
+No jQuery is required as of version 0.6.6.
 
 ## Fontawesome (optional)
-
 [Fontawesome](http://fontawesome.io/) is the the-facto standard of font icons of our time. Include it in your project to see the spinner moving when loading the remote templates.
 
-The easiest way to include it by using a CDN. For example, [bootstrap CDN](https://www.bootstrapcdn.com/fontawesome/) (not afiliated nor they endorse this project) is one of the most known.
+The easiest way to include it by using a CDN. For example, [bootstrap CDN](https://www.bootstrapcdn.com/fontawesome/)
+(not affiliated nor they endorse this project) is one of the most known.
 
 Default waiting spinner uses fontawesome. You can overwrite **async_include/spinner.html** template if don't want to use
 the default fontawesome style.
@@ -220,7 +209,7 @@ Example:
 
 {# .. #}
 
-{# Will be replaced by <li></li> block insted of <div></div> #}
+{# Will be replaced by <li></li> block instead of <div></div> #}
 {% async_include "boards/components/view/last_comments.html" board=board html__tag='li' %}
 ```
 
