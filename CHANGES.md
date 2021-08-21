@@ -1,6 +1,11 @@
 Changes
 =======
 
+Version 0.6.6
+-------------
+
+* README typos are fixed.
+
 Version 0.6.5
 -------------
 

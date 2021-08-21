@@ -39,7 +39,7 @@ should work fine with versions from 1.8 to 1.9.
 ## jQuery
 Having said that, this application needs [jQuery](https://jquery.com/) to fetch the templates. So make sure you have jquery loaded in your HEAD HTML section.
 
-The easiest way of inclue jQuery in your project is by [loading it from a CDN](https://code.jquery.com/):
+The easiest way of including jQuery in your project is by [loading it from a CDN](https://code.jquery.com/):
 
 ```html
 <script
@@ -98,9 +98,11 @@ INSTALLED_APPS = [
 Include the URLs of Django-Async-Include in your **urls.py** project in the namespace **async_include**:
 
 ```python
+from django.urls import path, include
+
 urlpatterns = [
     # ...
-    url(r'^async_include/', include('async_include.urls', namespace="async_include")),
+    path(r'async_include/', include('async_include.urls', namespace="async_include")),
 ]
 ```
 
@@ -109,7 +111,7 @@ urlpatterns = [
 Load the **async_include** template tags at the top of your file and use the **async_include**
 template tag as a replacement of the django include template tag.
 
-You have to pass the local context explicitily to the async included templates, so you can pass all variables you
+You have to pass the local context explicitly to the async included templates, so you can pass all variables you
 need in your included template as named parameters of the **async_include** template tag.
 
 ```html
@@ -128,16 +130,17 @@ need in your included template as named parameters of the **async_include** temp
 No dynamic attribute will be passed to the templates given that only a reference to it is passed from the caller to the
 included template callee. **Don't use dynamic attributes inside an async_included template**.
 
-Howewer, the full object will be passed to the async_included template, so you could call its methods and properties
+However, the full object will be passed to the async_included template, so you could call its methods and properties
 without any problem.
 
 ### QuerySets
 
 Each QuerySet is passed as encrypted SQL and converted on the receiver to a RawQuerySet.
 
-RawQuerySet has no __len__ method so length filter returns allways 0.
+Note that RawQuerySets have no __len__ method so length filter returns always 0.
 
-To fix this we have implemented a new version of the length filter that will be loaded in your template if you overwrite
+To fix this we have implemented a new version of the length filter
+that will be loaded in your template if you overwrite it.
 
 ```html
 {% load async_included %}
@@ -247,12 +250,12 @@ Example:
 
 {# .. #}
 
-{# Upate the last comments each 60 seconds #}
+{# Update the last comments each 60 seconds #}
 {% async_include "boards/components/view/last_comments.html" board=board request__frequency=60 %}
 ```
 
 # Main author
-Diego J. Romero-López is a Software Engineer at [Drivies](https://www.driviesapp.com/).
+Diego J. Romero-López is a Software Engineer based on Madrid (Spain).
 
 This project is in no way endorsed or related in any way to my past or current employers.
 
@@ -265,4 +268,4 @@ Contact me by email at diegojREMOVETHISromerolopezREMOVETHIS@gmail.com.
   - Modern mobile browser support.
   - PyPy configuration fixes.
   - Python3 support.
-  - Multi language support.
+  - Multi-language support.
