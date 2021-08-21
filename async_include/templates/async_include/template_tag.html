@@ -1,9 +1,5 @@
 <script id="script_{{block_id}}" type="text/javascript">
-    if (typeof jQuery == 'undefined') {
-        {% include 'async_include/template_tag.js' %}
-    } else {
-        {% include 'async_include/template_tag_legacy.js' %}
-    }
+    {% include 'async_include/template_tag.js' %}
 </script>
 
 <{{html__tag}} id="{{block_id}}" class="async_included-block {{html__tag__class}}" data-request-function="make_request__{{block_id}}">
