@@ -17,14 +17,13 @@ from django.views.decorators.csrf import csrf_exempt
 # Return the template with the remote context replaced
 @csrf_exempt
 def get_template(request):
-    print("fsdfdasfas")
+
     # POST request is mandatory
     if request.method != "POST":
         return HttpResponse(status=400)
 
     json_body = jsonpickle.loads(request.body.decode('utf-8'))
     path = json_body.get("path")
-    print(json_body)
 
     # Remote context
     # The caller has sent the model objects and

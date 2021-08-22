@@ -8,7 +8,7 @@ ASYNC_INCLUDE_PATH = os.path.normpath(os.path.join(BASE_PATH, '..', '..'))
 if ASYNC_INCLUDE_PATH not in sys.path:
     sys.path.insert(0, ASYNC_INCLUDE_PATH)
 
-SECRET_KEY = "xxxx"
+SECRET_KEY = "secret-key"
 
 TEST_DATABASE_PATH = os.path.join(BASE_PATH, "resources/test.db")
 
