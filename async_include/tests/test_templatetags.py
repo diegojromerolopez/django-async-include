@@ -16,16 +16,23 @@ class TestViews(TestCase):
         django.setup()
         super(TestViews, cls).setUpClass()
 
-    @unittest.mock.patch('async_include.templatetags.async_include.get_unique_template_id')
-    @unittest.mock.patch('async_include.templatetags.async_include.slugify_template_path')
-    def test_async_include(self, mock_slugify_template_path, mock_get_unique_template_id):
+    @unittest.mock.patch(
+        'async_include.templatetags.async_include.get_unique_template_id'
+    )
+    @unittest.mock.patch(
+        'async_include.templatetags.async_include.slugify_template_path'
+    )
+    def test_async_include(
+            self, mock_slugify_template_path, mock_get_unique_template_id
+    ):
         mock_slugify_template_path.return_value = 'test_template_path'
         mock_get_unique_template_id.return_value = 'test_uuid'
 
         test_async_include_html = render_to_string('test_async_include.html')
 
         self.assertIn(
-            '<script id="script_test_template_path__test_uuid" type="text/javascript">',
+            '<script id="script_test_template_path__test_uuid" '
+            'type="text/javascript">',
             test_async_include_html
         )
         self.assertIn(
