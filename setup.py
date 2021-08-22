@@ -24,6 +24,7 @@ setup(
     author_email="diegojromerolopez@gmail.com",
     description="A simple application for Django to include (and fetch) asynchronous templates.",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     classifiers=[
         'Programming Language :: Python :: Implementation :: CPython',
         'Development Status :: 5 - Production/Stable',
