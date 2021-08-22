@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function(event) {
     const request_frequency = "{{request__frequency}}";
 
