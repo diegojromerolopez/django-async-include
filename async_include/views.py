@@ -59,8 +59,10 @@ def get_template(request):
                 context_object_load_params["__checksum__"] !=
                 checksum.make(model_object_as_str)
             ):
-                raise AssertionError(
-                    "JSON tampering detected when loading object"
+                return HttpResponse(
+                    status=403,
+                    content='JSON tampering detected when loading object',
+                    content_type='text/plain'
                 )
 
             replacements[context_object_name] = model_object
@@ -101,11 +103,13 @@ def get_template(request):
                 context_object_load_params["__checksum__"] !=
                     checksum.make(value_as_str)
             ):
-                raise AssertionError(
-                    "JSON tampering detected when loading safe value "
-                    "for attribute '{0}'. Value: '{1}'".format(
-                        context_object_name, value_as_str
-                    )
+                return HttpResponse(
+                    status=403,
+                    content="JSON tampering detected when loading safe value "
+                            "for attribute '{0}'. Value: '{1}'".format(
+                                context_object_name, value_as_str
+                            ),
+                    content_type='text/plain'
                 )
 
             # Including the safe value as a replacement
