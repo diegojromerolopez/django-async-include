@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls import url
+from django.urls import path
 
 from async_include import views
 
 app_name = 'async_include'
 
 urlpatterns = [
-    # Load
-    url(r'^get/?$', views.get_template, name="get_template"),
+    path(r'get/?', views.get_template, name="get_template"),
 ]
