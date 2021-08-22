@@ -12,7 +12,9 @@ class TestViews(TestCase):
     @classmethod
     def setUpClass(cls):
         import os
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'async_include.tests.settings')
+        os.environ.setdefault(
+            'DJANGO_SETTINGS_MODULE', 'async_include.tests.settings'
+        )
         import django
         django.setup()
         super(TestViews, cls).setUpClass()
@@ -21,7 +23,9 @@ class TestViews(TestCase):
     @unittest.mock.patch('async_include.checksum.make')
     @unittest.mock.patch('async_include.crypto.decrypt')
     @unittest.mock.patch('django.db.models.query.QuerySet.raw')
-    def test_get_template_ok(self, mock_raw, mock_decrypt, mock_make_checksum, mock_get_model):
+    def test_get_template_ok(
+            self, mock_raw, mock_decrypt, mock_make_checksum, mock_get_model
+    ):
         mock_make_checksum.return_value = 'checksum'
         mock_decrypt.return_value = b'decrypt result'
         mock_raw.return_value = 'raw return value'
@@ -99,10 +103,13 @@ class TestViews(TestCase):
             },
             'language_code': 'en-us'
         })
-        resp = self.client.post(url, data=post_data, content_type='application/json')
+        resp = self.client.post(url, data=post_data,
+                                content_type='application/json')
 
         self.assertEqual(200, resp.status_code)
-        self.assertEqual({'Content-Type': 'text/html; charset=utf-8'}, resp.headers)
+        self.assertEqual(
+            {'Content-Type': 'text/html; charset=utf-8'}, resp.headers
+        )
         self.assertEqual(
             render_to_string('async_include/spinner.html').encode('utf-8'),
             resp.content
