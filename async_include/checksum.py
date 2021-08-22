@@ -8,7 +8,7 @@ import hashlib
 
 
 def make(string):
-    key = "{0}-{1}".format(string, settings.SECRET_KEY)
+    key = '{0}-{1}'.format(string, settings.SECRET_KEY)
 
     try:
         return hashlib.md5(key).hexdigest()

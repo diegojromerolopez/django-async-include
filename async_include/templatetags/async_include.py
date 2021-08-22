@@ -26,7 +26,7 @@ def get_unique_template_id():
     Get an unique id for a template as a string.
     :return: an unique id for a template.
     """
-    return uuid.uuid4().urn[9:].replace("-", "")
+    return uuid.uuid4().urn[9:].replace('-', '')
 
 
 def slugify_template_path(template_path):
@@ -37,7 +37,7 @@ def slugify_template_path(template_path):
     :param template_path: string with the template path.
     :return: slug of the template path.
     """
-    return slugify(template_path.replace("/", "_").replace("-", "_"))
+    return slugify(template_path.replace('/', '_').replace('-', '_'))
 
 
 # Async include template tag.
@@ -52,44 +52,44 @@ def async_include(context, template_path, *args, **kwargs):
     slugified_template_path = slugify_template_path(template_path)
 
     # Unique block id (uniqueness based on UUID)
-    block_id = "{0}__{1}".format(
+    block_id = '{0}__{1}'.format(
         slugified_template_path, get_unique_template_id()
     )
 
     # Give the possibility to customize the HTML tag
-    html__tag = kwargs.pop("html__tag", "div")
+    html__tag = kwargs.pop('html__tag', 'div')
 
     # HTML tag class
-    html__tag__class = kwargs.pop("html__tag__class", slugified_template_path)
+    html__tag__class = kwargs.pop('html__tag__class', slugified_template_path)
 
     # Shall we show a spinner?
-    spinner__visible = kwargs.pop("spinner__visible", True)
+    spinner__visible = kwargs.pop('spinner__visible', True)
 
     # Spinner template path
     spinner__template_path = kwargs.pop(
-        "spinner__template_path", "async_include/spinner.html"
+        'spinner__template_path', 'async_include/spinner.html'
     )
 
     # Recurrent requests
-    request__frequency = kwargs.pop("request__frequency", "once")
+    request__frequency = kwargs.pop('request__frequency', 'once')
 
     replacements = {
-        "template_path": template_path,
-        "block_id": block_id,
-        "html__tag": html__tag,
-        "html__tag__class": html__tag__class,
-        "spinner__visible": spinner__visible,
-        "spinner__template_path": spinner__template_path,
-        "request__frequency": request__frequency,
-        "context": {}
+        'template_path': template_path,
+        'block_id': block_id,
+        'html__tag': html__tag,
+        'html__tag__class': html__tag__class,
+        'spinner__visible': spinner__visible,
+        'spinner__template_path': spinner__template_path,
+        'request__frequency': request__frequency,
+        'context': {}
     }
 
     for context_object_name, context_object in kwargs.items():
         # For each passed parameter,
         # it can be a model object or a safe value (string or number)
         is_model_object = (
-            hasattr(context_object, "id") and
-            hasattr(context_object.__class__, "__name__")
+            hasattr(context_object, 'id') and
+            hasattr(context_object.__class__, '__name__')
         )
 
         # We store a reference of the model object based on its model name,
@@ -101,15 +101,15 @@ def async_include(context, template_path, *args, **kwargs):
             app_name = (
                 ContentType.objects.get_for_model(context_object).app_label
             )
-            model_object_as_str = "{0}-{1}-{2}".format(
+            model_object_as_str = '{0}-{1}-{2}'.format(
                 app_name, model_name, object_id
             )
-            replacements["context"][context_object_name] = {
-                "type": "model",
-                "id": object_id,
-                "app_name": app_name,
-                "model": model_name,
-                "__checksum__": checksum.make(model_object_as_str)
+            replacements['context'][context_object_name] = {
+                'type': 'model',
+                'id': object_id,
+                'app_name': app_name,
+                'model': model_name,
+                '__checksum__': checksum.make(model_object_as_str)
             }
 
         elif type(context_object) == QuerySet:
@@ -123,32 +123,32 @@ def async_include(context, template_path, *args, **kwargs):
                 key=settings.SECRET_KEY[:16], data=sql_query
             )
 
-            replacements["context"][context_object_name] = {
-                "type": "QuerySet",
-                "query": encrypted_sql.decode("latin-1"),
-                "params": params,
-                "nonce": nonce.decode("latin-1"),
-                "tag": tag.decode("latin-1"),
-                "app_name": app_name,
-                "model": model_name,
+            replacements['context'][context_object_name] = {
+                'type': 'QuerySet',
+                'query': encrypted_sql.decode('latin-1'),
+                'params': params,
+                'nonce': nonce.decode('latin-1'),
+                'tag': tag.decode('latin-1'),
+                'app_name': app_name,
+                'model': model_name,
             }
 
-        # Safe values are sent "as is" to the view
+        # Safe values are sent as is to the view
         # that will render the template
         else:
-            context_object_as_str = "{0}".format(context_object)
-            replacements["context"][context_object_name] = {
-                "type": "safe_value",
-                "value": context_object,
-                "value_as_str": context_object_as_str,
-                "__checksum__": checksum.make(context_object_as_str)
+            context_object_as_str = '{0}'.format(context_object)
+            replacements['context'][context_object_name] = {
+                'type': 'safe_value',
+                'value': context_object,
+                'value_as_str': context_object_as_str,
+                '__checksum__': checksum.make(context_object_as_str)
             }
 
     # Serialization of context that will be sent
-    replacements["context"] = jsonpickle.dumps(replacements["context"])
+    replacements['context'] = jsonpickle.dumps(replacements['context'])
 
     # Pass language code
-    replacements["language_code"] = get_language()
+    replacements['language_code'] = get_language()
 
     # Render the template of this template tag
     try:
