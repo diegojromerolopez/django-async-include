@@ -1,6 +1,11 @@
 Changes
 =======
 
+Version 0.6.7
+-------------
+* Add some tests.
+* Repository cleanup.
+
 Version 0.6.6
 -------------
 * Removal of jQuery requirement.
