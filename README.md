@@ -8,6 +8,7 @@
 [![PyPI status](https://img.shields.io/pypi/status/django-async-include.svg)](https://pypi.python.org/pypi/django-async-include/)
 [![PyPI download month](https://img.shields.io/pypi/dm/django-async-include.svg)](https://pypi.python.org/pypi/django-async-include/)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a795d65d98ec8e261709/maintainability)](https://codeclimate.com/github/diegojromerolopez/django-async-include/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/a795d65d98ec8e261709/test_coverage)](https://codeclimate.com/github/diegojromerolopez/django-async-include/test_coverage)
 
 Asynchronous inclusion of Django templates
 
@@ -33,8 +34,7 @@ returns it in the AJAX call.
 
 This application only depends on [pycryptodome](https://github.com/Legrandin/pycryptodome) and [jsonpickle](https://jsonpickle.github.io/).
 
-Of course, you will need [Django](https://www.djangoproject.com/) version 1.10 or newer. I have not tested in lower versions of Django but it
-should work fine with versions from 1.8 to 1.9.
+Of course, you will need [Django](https://www.djangoproject.com/) version 1.10 or newer.
 
 ## jQuery
 No jQuery is required as of version 0.6.6.
@@ -43,7 +43,7 @@ No jQuery is required as of version 0.6.6.
 [Fontawesome](http://fontawesome.io/) is the the-facto standard of font icons of our time. Include it in your project to see the spinner moving when loading the remote templates.
 
 The easiest way to include it by using a CDN. For example, [bootstrap CDN](https://www.bootstrapcdn.com/fontawesome/)
-(not affiliated nor they endorse this project) is one of the most known.
+(not affiliated, nor they endorse this project) is one of the most known.
 
 Default waiting spinner uses fontawesome. You can overwrite **async_include/spinner.html** template if don't want to use
 the default fontawesome style.
@@ -169,7 +169,7 @@ Note that this templatetag file is **async_included**, ending in **ed**.
 ## Spinner
 
 Overwrite **async_include/spinner.html** template if you want to change the spinner from fontawesome one (default) by a
-background image or a image. Otherwise, make sure you are loading fontawesome fonts.
+background image or an image. Otherwise, make sure you are loading fontawesome fonts.
 
 Note that the spinner must have class **async_included-spinner**. Otherwise, the spinner behavior is going to be unpredictable.
 
@@ -188,7 +188,8 @@ Including the optional parameter **spinner__visible=False** when calling the asy
 
 ### Customize spinner template per async_include template tag call
 
-Use the optional parameter **spinner__template_path** to set a diferrent template path for an specific async_include call in your templates.
+Use the optional parameter **spinner__template_path** to set a different template path for a specific async_include 
+call in your templates.
 
 ```html
 {% load async_include %}
@@ -225,7 +226,7 @@ Customize the wrapper class by passing **html__tag__class** optional parameter t
 
 {# .. #}
 
-{# Will be replaced by <li></li> block insted of <div></div> #}
+{# Will be replaced by <li></li> block instead of <div></div> #}
 {# Class last_comments will be added to wrapper class #}
 {% async_include "boards/components/view/last_comments.html" board=board html__tag='li' html__tag__class='last_comments' %}
 ```
