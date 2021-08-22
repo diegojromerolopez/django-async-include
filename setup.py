@@ -15,14 +15,18 @@ for dirpath, dirnames, filenames in os.walk('.'):
     if '__init__.py' in filenames:
         continue
     elif filenames:
-        data_files.append([dirpath, [os.path.join(dirpath, f) for f in filenames]])
+        data_files.append(
+            [dirpath, [os.path.join(dirpath, f) for f in filenames]])
 
 setup(
     name="django-async-include",
     version="0.6.6",
     author="Diego J. Romero López",
     author_email="diegojromerolopez@gmail.com",
-    description="A simple application for Django to include (and fetch) asynchronous templates.",
+    description=(
+        "A simple application for Django to include "
+        "(and fetch) asynchronous templates."
+    ),
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[

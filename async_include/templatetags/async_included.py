@@ -16,7 +16,8 @@ register = template.Library()
 @register.filter(is_safe=True)
 def length(queryset):
 
-    # If the queryset is a RawQuerySet, we have to compute the COUNT on a different way
+    # If the queryset is a RawQuerySet,
+    # we have to compute the COUNT on a different way
     if type(queryset) == RawQuerySet:
 
         # Preparing quote of the parameters
@@ -25,10 +26,13 @@ def length(queryset):
                 return "'{0}'".format(param)
             return param
 
-        # For each parameter that needs it we have to quote it (Django internally relies on the database system)
+        # For each parameter that needs it we have to quote it
+        # (Django internally relies on the database system)
         quoted_params = [quote_param(param_i) for param_i in queryset.params]
         raw_query_sql = queryset.query.sql % (tuple(quoted_params))
-        count_sql = 'SELECT COUNT(*) FROM ({0}) RAWQUERY;'.format(raw_query_sql)
+        count_sql = (
+            'SELECT COUNT(*) FROM ({0}) RAWQUERY;'.format(raw_query_sql)
+        )
 
         # Execution of the code
         cursor = connection.cursor()

@@ -32,24 +32,29 @@ def get_unique_template_id():
 def slugify_template_path(template_path):
     """
     Slugify template path.
-    Replaces everything that is not an alphanumeric character in the template path.
+    Replaces everything that is not an alphanumeric
+    character in the template path.
     :param template_path: string with the template path.
     :return: slug of the template path.
     """
     return slugify(template_path.replace("/", "_").replace("-", "_"))
 
 
-# Async include template tag. Prepares data to be sent to the server and loads the
-# rendered template by using AJAX
+# Async include template tag.
+# Prepares data to be sent to the server and
+# loads the rendered template by using AJAX
 @register.simple_tag(takes_context=True)
 def async_include(context, template_path, *args, **kwargs):
     t = loader.get_template('async_include/template_tag.html')
 
-    # Slugified temlate path. It will be used in the block_id and as a class of this block
+    # Slugified template path. It will be used in the block_id and
+    # as a class of this block
     slugified_template_path = slugify_template_path(template_path)
 
     # Unique block id (uniqueness based on UUID)
-    block_id = "{0}__{1}".format(slugified_template_path, get_unique_template_id())
+    block_id = "{0}__{1}".format(
+        slugified_template_path, get_unique_template_id()
+    )
 
     # Give the possibility to customize the HTML tag
     html__tag = kwargs.pop("html__tag", "div")
@@ -61,7 +66,9 @@ def async_include(context, template_path, *args, **kwargs):
     spinner__visible = kwargs.pop("spinner__visible", True)
 
     # Spinner template path
-    spinner__template_path = kwargs.pop("spinner__template_path", "async_include/spinner.html")
+    spinner__template_path = kwargs.pop(
+        "spinner__template_path", "async_include/spinner.html"
+    )
 
     # Recurrent requests
     request__frequency = kwargs.pop("request__frequency", "once")
@@ -78,16 +85,25 @@ def async_include(context, template_path, *args, **kwargs):
     }
 
     for context_object_name, context_object in kwargs.items():
-        # For each passed parameter, it can be a model object or a safe value (string or number)
-        is_model_object = hasattr(context_object, "id") and hasattr(context_object.__class__, "__name__")
+        # For each passed parameter,
+        # it can be a model object or a safe value (string or number)
+        is_model_object = (
+            hasattr(context_object, "id") and
+            hasattr(context_object.__class__, "__name__")
+        )
 
-        # We store a reference of the model object based on its model name, app and id
-        # We will send this data to the view to load there this object
+        # We store a reference of the model object based on its model name,
+        # app and id. We will send this data to the view
+        # to load there this object
         if is_model_object:
             object_id = context_object.id
             model_name = context_object.__class__.__name__
-            app_name = ContentType.objects.get_for_model(context_object).app_label
-            model_object_as_str = "{0}-{1}-{2}".format(app_name, model_name, object_id)
+            app_name = (
+                ContentType.objects.get_for_model(context_object).app_label
+            )
+            model_object_as_str = "{0}-{1}-{2}".format(
+                app_name, model_name, object_id
+            )
             replacements["context"][context_object_name] = {
                 "type": "model",
                 "id": object_id,
@@ -103,7 +119,9 @@ def async_include(context, template_path, *args, **kwargs):
 
             sql_query, params = context_object.query.sql_with_params()
 
-            nonce, encrypted_sql, tag = crypto.encrypt(key=settings.SECRET_KEY[:16], data=sql_query)
+            nonce, encrypted_sql, tag = crypto.encrypt(
+                key=settings.SECRET_KEY[:16], data=sql_query
+            )
 
             replacements["context"][context_object_name] = {
                 "type": "QuerySet",
@@ -115,7 +133,8 @@ def async_include(context, template_path, *args, **kwargs):
                 "model": model_name,
             }
 
-        # Safe values are sent "as is" to the view that will render the template
+        # Safe values are sent "as is" to the view
+        # that will render the template
         else:
             context_object_as_str = "{0}".format(context_object)
             replacements["context"][context_object_name] = {

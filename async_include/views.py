@@ -26,7 +26,8 @@ def get_template(request):
     path = json_body.get("path")
 
     # Remote context
-    # The caller has sent the model objects and safe values (strings, numbers, etc.) as a dict with
+    # The caller has sent the model objects and
+    # safe values (strings, numbers, etc.) as a dict with
     # the app_labels, model and id
     context = json_body.get("context")
 
@@ -40,7 +41,8 @@ def get_template(request):
         # Type of the value
         object_type = context_object_load_params["type"]
 
-        # If the value is a model, we load the model object and include it in the template replacements
+        # If the value is a model, we load the model object and
+        # include it in the template replacements
         if object_type == "model":
             app_name = context_object_load_params["app_name"]
             model_name = context_object_load_params["model"]
@@ -50,9 +52,16 @@ def get_template(request):
             # Loading the object and including it as a replacement
             model_object = model.objects.get(id=object_id)
             # Checking if JSON has been tampered
-            model_object_as_str = "{0}-{1}-{2}".format(app_name, model_name, object_id)
-            if context_object_load_params["__checksum__"] != checksum.make(model_object_as_str):
-                raise AssertionError("JSON tampering detected when loading object")
+            model_object_as_str = "{0}-{1}-{2}".format(
+                app_name, model_name, object_id
+            )
+            if (
+                context_object_load_params["__checksum__"] !=
+                checksum.make(model_object_as_str)
+            ):
+                raise AssertionError(
+                    "JSON tampering detected when loading object"
+                )
 
             replacements[context_object_name] = model_object
 
@@ -76,17 +85,28 @@ def get_template(request):
                 )
 
                 # Loading the object and including it as a replacement
-                replacements[context_object_name] = model.objects.raw(raw_query, params)
+                replacements[context_object_name] = model.objects.raw(
+                    raw_query, params
+                )
             except ValueError:
                 pass
 
-        # If the value is a safe value we include it in the template replacements
+        # If the value is a safe value,
+        # we include it in the template replacements
         elif object_type == "safe_value":
             value = context_object_load_params["value"]
             value_as_str = context_object_load_params["value_as_str"]
             # Checking if JSON has been tampered
-            if context_object_load_params["__checksum__"] != checksum.make(value_as_str):
-                raise AssertionError("JSON tampering detected when loading safe value for attribute '{0}'. Value: '{1}'".format(context_object_name, value_as_str))
+            if (
+                context_object_load_params["__checksum__"] !=
+                    checksum.make(value_as_str)
+            ):
+                raise AssertionError(
+                    "JSON tampering detected when loading safe value "
+                    "for attribute '{0}'. Value: '{1}'".format(
+                        context_object_name, value_as_str
+                    )
+                )
 
             # Including the safe value as a replacement
             replacements[context_object_name] = value

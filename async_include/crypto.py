@@ -12,6 +12,10 @@ def encrypt(key, data):
 
 
 def decrypt(key, nonce, encrypted_data, tag):
-    cipher = AES.new(key.encode("utf-8"), AES.MODE_EAX, nonce.encode("latin-1"))
-    data = cipher.decrypt_and_verify(encrypted_data.encode("latin-1"), tag.encode("latin-1"))
+    cipher = AES.new(
+        key.encode("utf-8"), AES.MODE_EAX, nonce.encode("latin-1")
+    )
+    data = cipher.decrypt_and_verify(
+        encrypted_data.encode("latin-1"), tag.encode("latin-1")
+    )
     return data.decode("utf-8")
