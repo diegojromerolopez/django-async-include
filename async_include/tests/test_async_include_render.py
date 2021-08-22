@@ -49,11 +49,3 @@ class AsyncIncludeRenderTest(unittest.TestCase):
         """
         self.assertEqual(slugify_template_path("this/is/a%-%template/path-with-different-chars-like-ñáéíóúhtml"), "this_is_a_template_path_with_different_chars_like_naeiouhtml")
         self.assertEqual(slugify_template_path("this.is.another.templatehtml"), "thisisanothertemplatehtml")
-
-    def test_render_async_include_template_path(self):
-        """
-        Test if rendered string is correctly replaced.
-        """
-        rendered_template = self.render_template(path="test_render_async_include_template.html")
-        correct_rendered_template = self.render_template(path="test_render_async_include_template_rendered.html")
-        self.assertEqual(rendered_template, correct_rendered_template)
