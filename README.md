@@ -115,6 +115,15 @@ need in your included template as named parameters of the **async_include** temp
 There is also a repository with a full example:
 [django-async-include-example](https://github.com/diegojromerolopez/django-async-include-example).
 
+## Call javascript function whe load is completed
+
+Pass the attribute `onload` with the name of the function you want to call after the request and the replacement
+has been completed. e.g.
+
+```html
+{% async_include "boards/components/view/current_percentage_of_completion.html" board=board onload="load_board_style" %}
+```
+
 ## Warning and limitations
 
 ### Object dynamic attributes

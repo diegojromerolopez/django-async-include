@@ -73,6 +73,11 @@ def async_include(context, template_path, *args, **kwargs):
     # Recurrent requests
     request__frequency = kwargs.pop('request__frequency', 'once')
 
+    # On load call this function
+    onload = kwargs.pop(
+        'onload', None
+    )
+
     replacements = {
         'template_path': template_path,
         'block_id': block_id,
@@ -81,6 +86,7 @@ def async_include(context, template_path, *args, **kwargs):
         'spinner__visible': spinner__visible,
         'spinner__template_path': spinner__template_path,
         'request__frequency': request__frequency,
+        'onload_func': onload,
         'context': {}
     }
 

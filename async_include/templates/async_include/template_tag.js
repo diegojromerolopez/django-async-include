@@ -42,6 +42,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
             if(request_frequency == "once"){
                 document.getElementById(block_id).innerHTML = response_data;
                 document.getElementById(script_block_id).remove();
+                {% if onload_func %}
+                    {{onload_func}}();
+                {% endif %}
             }else{
                 document.getElementById(block_id).appendChild(
                     document.createTextNode(response_data)
