@@ -1,6 +1,10 @@
 Changes
 =======
 
+Version 0.6.8
+-------------
+* Feature: "onload" parameter for the async_include template_tag, allowing calling a callback function.
+
 Version 0.6.7
 -------------
 * Add some tests.

@@ -20,7 +20,7 @@ for dirpath, dirnames, filenames in os.walk('.'):
 
 setup(
     name="django-async-include",
-    version="0.6.7",
+    version="0.6.8",
     author="Diego J. Romero López",
     author_email="diegojromerolopez@gmail.com",
     description=(
