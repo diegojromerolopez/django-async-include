@@ -101,7 +101,7 @@ def get_template(request):
             # Checking if JSON has been tampered
             if (
                 context_object_load_params['__checksum__'] !=
-                    checksum.make(value_as_str)
+                    checksum.make(value)
             ):
                 return HttpResponse(
                     status=403,
