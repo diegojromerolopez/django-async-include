@@ -1,6 +1,10 @@
 Changes
 =======
 
+Version 0.6.9
+-------------
+* Fix: fix passing simple values (strings or numbers) as parameters.
+
 Version 0.6.8
 -------------
 * Feature: "onload" parameter for the async_include template_tag, allowing calling a callback function.
