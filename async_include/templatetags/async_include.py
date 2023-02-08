@@ -126,7 +126,7 @@ def async_include(context, template_path, *args, **kwargs):
             sql_query, params = context_object.query.sql_with_params()
 
             nonce, encrypted_sql, tag = crypto.encrypt(
-                key=settings.SECRET_KEY[:16], data=sql_query
+                key=settings.SECRET_KEY[:16], text=sql_query
             )
 
             replacements['context'][context_object_name] = {
@@ -142,7 +142,10 @@ def async_include(context, template_path, *args, **kwargs):
         # Safe values are sent as is to the view
         # that will render the template
         else:
-            context_object_as_str = '{0}'.format(context_object)
+            if isinstance(context_object, str):
+                context_object_as_str = context_object
+            else:
+                context_object_as_str = '{0}'.format(context_object)
             replacements['context'][context_object_name] = {
                 'type': 'safe_value',
                 'value': context_object,
