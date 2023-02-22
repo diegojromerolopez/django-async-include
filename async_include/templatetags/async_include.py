@@ -5,6 +5,8 @@ from __future__ import unicode_literals
 import jsonpickle
 import uuid
 
+from django.utils.safestring import SafeString
+
 from .. import crypto
 from .. import checksum
 
@@ -137,6 +139,16 @@ def async_include(context, template_path, *args, **kwargs):
                 'tag': tag.decode('latin-1'),
                 'app_name': app_name,
                 'model': model_name,
+            }
+
+        # Safe strings are converted to strings
+        elif isinstance(context_object, SafeString):
+            context_object_as_str = str.__str__(context_object)
+            replacements['context'][context_object_name] = {
+                'type': 'safe_value',
+                'value':  context_object_as_str,
+                'value_as_str': context_object_as_str,
+                '__checksum__': checksum.make(context_object_as_str)
             }
 
         # Safe values are sent as is to the view

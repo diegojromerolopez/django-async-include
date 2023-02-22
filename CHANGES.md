@@ -1,6 +1,10 @@
 Changes
 =======
 
+Version 0.6.10
+-------------
+* Fix: safe strings can be used as parameters of the async_include template tag.
+
 Version 0.6.9
 -------------
 * Fix: fix passing simple values (strings or numbers) as parameters.
