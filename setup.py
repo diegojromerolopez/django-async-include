@@ -20,7 +20,7 @@ for dirpath, dirnames, filenames in os.walk('.'):
 
 setup(
     name="django-async-include",
-    version="0.6.10",
+    version="0.7.0",
     author="Diego J. Romero López",
     author_email="diegojromerolopez@gmail.com",
     description=(
@@ -39,6 +39,8 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
         'Topic :: Software Development :: Libraries',
     ],
     install_requires=[

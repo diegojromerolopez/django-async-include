@@ -1,9 +1,11 @@
 Changes
 =======
 
-Version 0.6.10
+Version 0.7.0
 -------------
-* Fix: safe strings can be used as parameters of the async_include template tag.
+* Fix: github actions were broken as Python 3.7 is not supported anymore.
+* Add support for python 3.13.
+* Upgrade jsonpickle and pycryptodome dependencies.
 
 Version 0.6.9
 -------------
