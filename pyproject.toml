@@ -1,0 +1,37 @@
+[project]
+name = "django-async-include"
+version = "0.7.0"
+authors = [
+  { name="Diego J. Romero López", email="diegojromerolopez@gmail.com" },
+]
+description = "A simple application for Django to include (and fetch) asynchronous templates"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Topic :: Software Development :: Libraries",
+        "Development Status :: 5 - Production/Stable",
+        "License :: OSI Approved :: MIT License",
+]
+license = { text = "MIT" }
+dependencies = [
+    "Django>=1.11.4",
+    "jsonpickle>=2.0.0",
+    "pycryptodome>=3.10.1"
+]
+
+[project.urls]
+Homepage = "https://github.com/diegojromerolopez/django-async-include"
+Issues = "https://github.com/diegojromerolopez/django-async-include/issues"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
