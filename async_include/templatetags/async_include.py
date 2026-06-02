@@ -114,17 +114,17 @@ def async_include(context: Context, template_path: str, *args: Any, **kwargs: An
             params: Any
             sql_query, params = context_object.query.sql_with_params()
 
-            nonce: bytes
-            encrypted_sql: bytes
-            tag: bytes
+            nonce: str
+            encrypted_sql: str
+            tag: str
             nonce, encrypted_sql, tag = crypto.encrypt(key=settings.SECRET_KEY, text=sql_query)
 
             replacements['context'][context_object_name] = {
                 'type': 'QuerySet',
-                'query': encrypted_sql.decode('latin-1'),
+                'query': encrypted_sql,
                 'params': list(params),
-                'nonce': nonce.decode('latin-1'),
-                'tag': tag.decode('latin-1'),
+                'nonce': nonce,
+                'tag': tag,
                 'app_name': app_name,
                 'model': model_name,
             }

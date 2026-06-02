@@ -3,6 +3,7 @@ Changes
 
 Version 0.8.0
 -------------
+* Fix AES decryption failure (ValueError/bad MAC or corruption) on high-byte values (> 127) by replacing fragile Latin-1 serialization of encrypted values with standard Base64 encoding.
 * Security fix: replace `jsonpickle` with standard `json` to prevent arbitrary object deserialization / RCE vulnerability (CWE-502). Discovered and notified by shred0day (Igor Kakaroff) <igorkakaroff@gmail.com>.
 * Remove `jsonpickle` dependency.
 * Add template path validation and signature checking to prevent arbitrary template inclusion.
