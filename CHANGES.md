@@ -13,6 +13,7 @@ Version 0.8.0
 * Robust Django model detection using `isinstance(..., Model)` and support for custom primary keys (`pk` instead of `id`).
 * Secure AES key derivation using SHA-256 to prevent crashes and enforce correct 16-byte key formatting.
 * Replace insecure MD5 checksums with HMAC-SHA256 signatures for parameter integrity checks.
+* Fix URL routing pattern with invalid regex by using `re_path` to support both `/get` and `/get/` trailing slash variations dynamically.
 
 Version 0.7.0
 -------------

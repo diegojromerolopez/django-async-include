@@ -204,3 +204,11 @@ class TestViews(TestCase):
         resp = self.client.post(url, data=post_data, content_type="application/json")
         self.assertEqual(400, resp.status_code)
         self.assertEqual(b"Invalid template path traversal detected", resp.content)
+
+    def test_get_template_url_resolution(self):
+        # Verify that both with and without trailing slash match the view
+        # and do not raise a 404 error (returning 400 instead because of empty/invalid POST body).
+        resp_with_slash = self.client.post("/async_include/get/", data=b"{}", content_type="application/json")
+        resp_without_slash = self.client.post("/async_include/get", data=b"{}", content_type="application/json")
+        self.assertEqual(400, resp_with_slash.status_code)
+        self.assertEqual(400, resp_without_slash.status_code)
