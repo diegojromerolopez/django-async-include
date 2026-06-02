@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  website:
+    build:
+      context: ../../..
+      dockerfile: async_include/tests/e2e/website/Dockerfile
+      args:
+        - PYTHON_VERSION=${PYTHON_VERSION:-3.11}
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/test-page/"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  test-runner:
+    build:
+      context: ./test-runner
+      dockerfile: Dockerfile
+    depends_on:
+      website:
+        condition: service_healthy

@@ -1,0 +1,9 @@
+{
+  "name": "django-async-include-e2e",
+  "version": "1.0.0",
+  "description": "E2E tests for django-async-include using Puppeteer",
+  "private": true,
+  "dependencies": {
+    "puppeteer": "^22.0.0"
+  }
+}

@@ -1,11 +1,27 @@
 Changes
 =======
 
+Version 0.8.0
+-------------
+* Fix AES decryption failure (ValueError/bad MAC or corruption) on high-byte values (> 127) by replacing fragile Latin-1 serialization of encrypted values with standard Base64 encoding.
+* Security fix: replace `jsonpickle` with standard `json` to prevent arbitrary object deserialization / RCE vulnerability (CWE-502). Discovered and notified by shred0day (Igor Kakaroff) <igorkakaroff@gmail.com>.
+* Remove `jsonpickle` dependency.
+* Add template path validation and signature checking to prevent arbitrary template inclusion.
+* Add type hints across the codebase, validated with `mypy`.
+* Format code with `black` and check formatting/linting using `ruff`.
+* Add automated E2E browser tests using Puppeteer.
+* Remove `setup.py` and migrate all configuration and package metadata to `pyproject.toml`.
+* Robust Django model detection using `isinstance(..., Model)` and support for custom primary keys (`pk` instead of `id`).
+* Secure AES key derivation using SHA-256 to prevent crashes and enforce correct 16-byte key formatting.
+* Replace insecure MD5 checksums with HMAC-SHA256 signatures for parameter integrity checks.
+* Fix URL routing pattern with invalid regex by using `re_path` to support both `/get` and `/get/` trailing slash variations dynamically.
+
 Version 0.7.0
 -------------
 * Fix: github actions were broken as Python 3.7 is not supported anymore.
 * Add support for python 3.13.
 * Upgrade jsonpickle and pycryptodome dependencies.
+
 
 Version 0.6.9
 -------------

@@ -89,6 +89,17 @@ celerybeat-schedule
 /venv/
 venv/
 ENV/
+.venv/
+
+# mypy
+.mypy_cache/
+
+# ruff
+.ruff_cache/
+
+
+# uv
+uv.lock
 
 # Spyder project settings
 .spyderproject
@@ -96,3 +107,5 @@ ENV/
 # Rope project settings
 .ropeproject
 
+# Node modules
+async_include/tests/e2e/test-runner/node_modules/

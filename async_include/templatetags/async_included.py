@@ -1,27 +1,23 @@
-# -*- coding: utf-8 -*-
-
-from __future__ import unicode_literals
-
+from typing import Any
 
 from django.db import connection
 from django.db.models.query import RawQuerySet
 from django import template
 from django.template.defaultfilters import length as django_length
 
-
 register = template.Library()
 
 
 # Replacement of length filter for RawQuerySets
 @register.filter(is_safe=True)
-def length(queryset):
+def length(queryset: Any) -> int:
 
     # If the queryset is a RawQuerySet,
     # we have to compute the COUNT on a different way
-    if type(queryset) == RawQuerySet:
+    if isinstance(queryset, RawQuerySet):
 
         # Preparing quote of the parameters
-        def quote_param(param):
+        def quote_param(param: Any) -> Any:
             if isinstance(param, ("".__class__, u"".__class__)):
                 return "'{0}'".format(param)
             return param
@@ -30,9 +26,7 @@ def length(queryset):
         # (Django internally relies on the database system)
         quoted_params = [quote_param(param_i) for param_i in queryset.params]
         raw_query_sql = queryset.query.sql % (tuple(quoted_params))
-        count_sql = (
-            'SELECT COUNT(*) FROM ({0}) RAWQUERY;'.format(raw_query_sql)
-        )
+        count_sql = 'SELECT COUNT(*) FROM ({0}) RAWQUERY;'.format(raw_query_sql)
 
         # Execution of the code
         cursor = connection.cursor()
