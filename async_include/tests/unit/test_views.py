@@ -138,7 +138,7 @@ class TestViews(TestCase):
         self.assertEqual(403, resp.status_code)
         self.assertEqual("text/plain", resp.headers.get("Content-Type"))
         self.assertEqual(b"JSON tampering detected when loading object", resp.content)
-        self.assertEqual([unittest.mock.call("mock_app", "MockModel")], mock_get_model.call_args_list)
+        self.assertEqual([], mock_get_model.call_args_list)
         self.assertEqual(
             [unittest.mock.call("async_include/spinner.html"), unittest.mock.call("mock_app-MockModel-3774")],
             mock_make_checksum.call_args_list,

@@ -9,6 +9,10 @@ Version 0.8.0
 * Add type hints across the codebase, validated with `mypy`.
 * Format code with `black` and check formatting/linting using `ruff`.
 * Add automated E2E browser tests using Puppeteer.
+* Remove `setup.py` and migrate all configuration and package metadata to `pyproject.toml`.
+* Robust Django model detection using `isinstance(..., Model)` and support for custom primary keys (`pk` instead of `id`).
+* Secure AES key derivation using SHA-256 to prevent crashes and enforce correct 16-byte key formatting.
+* Replace insecure MD5 checksums with HMAC-SHA256 signatures for parameter integrity checks.
 
 Version 0.7.0
 -------------

@@ -7,19 +7,21 @@ authors = [
 description = "A simple application for Django to include (and fetch) asynchronous templates"
 readme = "README.md"
 requires-python = ">=3.8"
+keywords = ["django", "template", "asynchronous", "template_tag"]
 classifiers = [
+    "Framework :: Django",
     "Programming Language :: Python :: Implementation :: CPython",
-        "Programming Language :: Python :: Implementation :: PyPy",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Programming Language :: Python :: 3.11",
-        "Programming Language :: Python :: 3.12",
-        "Programming Language :: Python :: 3.13",
-        "Programming Language :: Python :: 3.14",
-        "Topic :: Software Development :: Libraries",
-        "Development Status :: 5 - Production/Stable",
-        "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries",
+    "Development Status :: 5 - Production/Stable",
+    "License :: OSI Approved :: MIT License",
 ]
 license = { text = "MIT" }
 dependencies = [
@@ -48,6 +50,12 @@ ignore_missing_imports = true
 
 [tool.ruff]
 line-length = 120
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+exclude = ["async_include.tests", "async_include.tests.*"]
 
 [build-system]
 requires = ["setuptools>=61.0"]

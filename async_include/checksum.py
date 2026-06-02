@@ -1,8 +1,8 @@
-from django.conf import settings
-
 import hashlib
+import hmac
+from django.conf import settings
 
 
 def make(string: str) -> str:
-    key = '{0}-{1}'.format(string, settings.SECRET_KEY)
-    return hashlib.md5(key.encode('utf-8')).hexdigest()
+    key = settings.SECRET_KEY.encode('utf-8')
+    return hmac.new(key, string.encode('utf-8'), hashlib.sha256).hexdigest()

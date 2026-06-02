@@ -57,16 +57,20 @@ def get_template(request: HttpRequest) -> HttpResponse:
             app_name: str = context_object_load_params['app_name']
             model_name: str = context_object_load_params['model']
             object_id: Any = context_object_load_params['id']
-            # Loading the model
-            model = apps.get_model(app_name, model_name)
-            # Loading the object and including it as a replacement
-            model_object = model.objects.get(id=object_id)
             # Checking if JSON has been tampered
             model_object_as_str = '{0}-{1}-{2}'.format(app_name, model_name, object_id)
             if context_object_load_params['__checksum__'] != checksum.make(model_object_as_str):
                 return HttpResponse(
                     status=403, content='JSON tampering detected when loading object', content_type='text/plain'
                 )
+
+            # Loading the model
+            model = apps.get_model(app_name, model_name)
+            # Loading the object and including it as a replacement
+            try:
+                model_object = model.objects.get(pk=object_id)
+            except model.DoesNotExist:
+                model_object = None
 
             replacements[context_object_name] = model_object
 
@@ -83,16 +87,20 @@ def get_template(request: HttpRequest) -> HttpResponse:
             try:
                 # Decryption of the data
                 raw_query = crypto.decrypt(
-                    key=settings.SECRET_KEY[:16],
+                    key=settings.SECRET_KEY,
                     nonce=nonce,
                     encrypted_data=context_object_load_params['query'],
                     tag=tag,
                 )
-
-                # Loading the object and including it as a replacement
-                replacements[context_object_name] = model.objects.raw(raw_query, params)
             except ValueError:
-                pass
+                return HttpResponse(
+                    status=403,
+                    content='JSON tampering detected when decrypting QuerySet',
+                    content_type='text/plain',
+                )
+
+            # Loading the object and including it as a replacement
+            replacements[context_object_name] = model.objects.raw(raw_query, params)
 
         # If the value is a safe value,
         # we include it in the template replacements

@@ -10,6 +10,7 @@ from .. import checksum
 from django.conf import settings
 from django import template
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Model
 from django.db.models.query import QuerySet
 from django.template import loader, Context
 from django.utils.text import slugify
@@ -86,13 +87,13 @@ def async_include(context: Context, template_path: str, *args: Any, **kwargs: An
     for context_object_name, context_object in kwargs.items():
         # For each passed parameter,
         # it can be a model object or a safe value (string or number)
-        is_model_object: bool = hasattr(context_object, 'id') and hasattr(context_object.__class__, '__name__')
+        is_model_object: bool = isinstance(context_object, Model)
 
         # We store a reference of the model object based on its model name,
-        # app and id. We will send this data to the view
+        # app and primary key. We will send this data to the view
         # to load there this object
         if is_model_object:
-            object_id: Any = context_object.id
+            object_id: Any = context_object.pk
             model_name: str = context_object.__class__.__name__
             app_name: str = ContentType.objects.get_for_model(context_object).app_label
             model_object_as_str: str = '{0}-{1}-{2}'.format(app_name, model_name, object_id)
@@ -116,7 +117,7 @@ def async_include(context: Context, template_path: str, *args: Any, **kwargs: An
             nonce: bytes
             encrypted_sql: bytes
             tag: bytes
-            nonce, encrypted_sql, tag = crypto.encrypt(key=settings.SECRET_KEY[:16], text=sql_query)
+            nonce, encrypted_sql, tag = crypto.encrypt(key=settings.SECRET_KEY, text=sql_query)
 
             replacements['context'][context_object_name] = {
                 'type': 'QuerySet',
