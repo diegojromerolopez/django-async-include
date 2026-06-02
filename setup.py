@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os
 from setuptools import setup, find_packages
 
@@ -20,7 +18,7 @@ for dirpath, dirnames, filenames in os.walk('.'):
 
 setup(
     name="django-async-include",
-    version="0.7.0",
+    version="0.8.0",
     author="Diego J. Romero López",
     author_email="diegojromerolopez@gmail.com",
     description=(
@@ -44,13 +42,12 @@ setup(
         'Topic :: Software Development :: Libraries',
     ],
     install_requires=[
-        "pycryptodome>=3.10.1",
-        "jsonpickle>=2.0.0"
+        "pycryptodome>=3.10.1"
     ],
     license="MIT",
     keywords="django template asynchronous template_tag",
     url='https://github.com/diegojromerolopez/django-async-include',
-    packages=find_packages('.'),
+    packages=find_packages(exclude=["async_include.tests", "async_include.tests.*"]),
     data_files=data_files,
     include_package_data=True,
 )

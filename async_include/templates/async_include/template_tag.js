@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         const context = {{context|safe}};
         const post_data = {
             path: "{{template_path}}",
+            path_checksum: "{{path_checksum}}",
             language_code: "{{ language_code }}",
             context: context
         };
@@ -62,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     };
     if(request_frequency == "once"){
         make_request__{{block_id}}();
-    } else if($.isNumeric(request_frequency) && request_frequency > 0){
+    } else if(!isNaN(parseFloat(request_frequency)) && isFinite(request_frequency) && request_frequency > 0){
         make_request__{{block_id}}();
         make_request_interval_{{block_id}}_id = setInterval(make_request__{{block_id}}, request_frequency*1000);
     }

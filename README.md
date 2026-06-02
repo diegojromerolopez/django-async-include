@@ -32,7 +32,7 @@ returns it in the AJAX call.
 
 # Requirements
 
-This application only depends on [pycryptodome](https://github.com/Legrandin/pycryptodome) and [jsonpickle](https://jsonpickle.github.io/).
+This application only depends on [pycryptodome](https://github.com/Legrandin/pycryptodome).
 
 Of course, you will need [Django](https://www.djangoproject.com/) version 1.10 or newer.
 
@@ -255,6 +255,23 @@ Example:
 {# Update the last comments each 60 seconds #}
 {% async_include "boards/components/view/last_comments.html" board=board request__frequency=60 %}
 ```
+
+# Development
+
+To run the development tools, we provide a root-level `Makefile` with the following commands:
+
+* **Run Unit Tests:**
+  ```sh
+  make test-unit
+  ```
+* **Run E2E Tests (in Docker Compose):**
+  ```sh
+  make test-e2e
+  ```
+* **Run Linters and Formatters:**
+  ```sh
+  make lint
+  ```
 
 # Main author
 Diego J. Romero-López is a Software Engineer based on Madrid (Spain).

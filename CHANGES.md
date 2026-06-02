@@ -1,11 +1,21 @@
 Changes
 =======
 
+Version 0.8.0
+-------------
+* Security fix: replace `jsonpickle` with standard `json` to prevent arbitrary object deserialization / RCE vulnerability (CWE-502). Discovered and notified by shred0day (Igor Kakaroff) <igorkakaroff@gmail.com>.
+* Remove `jsonpickle` dependency.
+* Add template path validation and signature checking to prevent arbitrary template inclusion.
+* Add type hints across the codebase, validated with `mypy`.
+* Format code with `black` and check formatting/linting using `ruff`.
+* Add automated E2E browser tests using Puppeteer.
+
 Version 0.7.0
 -------------
 * Fix: github actions were broken as Python 3.7 is not supported anymore.
 * Add support for python 3.13.
 * Upgrade jsonpickle and pycryptodome dependencies.
+
 
 Version 0.6.9
 -------------

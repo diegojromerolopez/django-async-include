@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os
 import sys
 
@@ -9,21 +7,18 @@ if ASYNC_INCLUDE_PATH not in sys.path:
     sys.path.insert(0, ASYNC_INCLUDE_PATH)
 
 SECRET_KEY = "secret-key"
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 TEST_DATABASE_PATH = os.path.join(BASE_PATH, "resources/test.db")
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': TEST_DATABASE_PATH
-    }
-}
+DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': TEST_DATABASE_PATH}}
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_PATH+"/templates"],
+        'DIRS': [BASE_PATH + "/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -48,17 +43,18 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin'
+    'django.contrib.admin',
 ]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'crequest.middleware.CrequestMiddleware',
-    'cuser.middleware.CuserMiddleware'
 )
+MIDDLEWARE_CLASSES = MIDDLEWARE
 
 ROOT_URLCONF = 'async_include.tests.urls'
+
+STATIC_URL = '/static/'
