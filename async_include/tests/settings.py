@@ -10,15 +10,15 @@ SECRET_KEY = "secret-key"
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
-TEST_DATABASE_PATH = os.path.join(BASE_PATH, "resources/test.db")
-
-
-DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': TEST_DATABASE_PATH}}
+DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': ':memory:'}}
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_PATH + "/templates"],
+        'DIRS': [
+            os.path.join(BASE_PATH, 'unit', 'templates'),
+            os.path.join(BASE_PATH, 'e2e', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
